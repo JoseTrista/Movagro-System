@@ -4,30 +4,53 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
- * @author Equipo Movagro
+ * @author oscar
  */
-public class DetalleCompra {
-    private Material materiales;
-    private float costoUnitario;
-    private short cantidad;
+@Entity
+public class DetalleCompra implements Serializable {
 
-    public DetalleCompra(Material materiales, float costoUnitario, short cantidad) {
-        this.materiales = materiales;
-        this.costoUnitario = costoUnitario;
-        this.cantidad = cantidad;
-    }
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    
+    @Column(name = "Costo_Unitario")
+    private float costoUnitario;
+    
+    @Column(name = "Cantidad")
+    private short cantidad;
 
     public DetalleCompra() {
     }
 
-    public Material getMateriales() {
-        return materiales;
+    public DetalleCompra(Integer id, float costoUnitario, short cantidad) {
+        this.id = id;
+        this.costoUnitario = costoUnitario;
+        this.cantidad = cantidad;
     }
 
-    public void setMateriales(Material materiales) {
-        this.materiales = materiales;
+    public DetalleCompra(float costoUnitario, short cantidad) {
+        this.costoUnitario = costoUnitario;
+        this.cantidad = cantidad;
+    }
+    
+    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public float getCostoUnitario() {
@@ -45,9 +68,32 @@ public class DetalleCompra {
     public void setCantidad(short cantidad) {
         this.cantidad = cantidad;
     }
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof DetalleCompra)) {
+            return false;
+        }
+        DetalleCompra other = (DetalleCompra) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toString() {
-        return "DetalleCompra{" + "materiales=" + materiales + ", costoUnitario=" + costoUnitario + ", cantidad=" + cantidad + '}';
+        return "com.futuresoft.sistemamovagro_dominio.DetalleCompra[ id=" + id + " ]";
     }
+    
 }

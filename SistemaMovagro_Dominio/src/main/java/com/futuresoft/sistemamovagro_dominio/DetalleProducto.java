@@ -4,42 +4,83 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
- * @author Equipo Movagro
+ * @author oscar
  */
-public class DetalleProducto {
-    private Producto producto;
-    private int Cantidad;
+@Entity
+public class DetalleProducto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(name = "Cantidad")
+    private int cantidad;
 
     public DetalleProducto() {
     }
 
-    public DetalleProducto(Producto producto, int Cantidad) {
-        this.producto = producto;
-        this.Cantidad = Cantidad;
+    public DetalleProducto(Long id, int cantidad) {
+        this.id = id;
+        this.cantidad = cantidad;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public DetalleProducto(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    
+
+    public Long getId() {
+        return id;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getCantidad() {
-        return Cantidad;
+        return cantidad;
     }
 
-    public void setCantidad(int Cantidad) {
-        this.Cantidad = Cantidad;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof DetalleProducto)) {
+            return false;
+        }
+        DetalleProducto other = (DetalleProducto) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "DetalleProducto{" + "producto=" + producto + ", Cantidad=" + Cantidad + '}';
+        return "com.futuresoft.sistemamovagro_dominio.DetalleProducto[ id=" + id + " ]";
     }
-    
     
 }

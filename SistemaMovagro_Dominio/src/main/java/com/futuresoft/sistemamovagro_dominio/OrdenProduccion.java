@@ -4,48 +4,75 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
- * @author Equipo Movagros
+ * @author oscar
  */
-public class OrdenProduccion {
-    private Material material;
-    private float precioTotalMaterial;
-    private float precioTotalOrden;
-    private short cantidad;
+@Entity
+public class OrdenProduccion implements Serializable {
 
-    public OrdenProduccion(Material material, float precioTotalMaterial, float precioTotalOrden, short cantidad) {
-        this.material = material;
-        this.precioTotalMaterial = precioTotalMaterial;
-        this.precioTotalOrden = precioTotalOrden;
-        this.cantidad = cantidad;
-    }
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(name = "Precio_Total_Material")
+    private float precioTM;
+    
+     @Column(name = "Precio_Total_Orden")
+    private float precioTO;
+     
+     @Column(name = "cantidad")
+    private short cantidad;
 
     public OrdenProduccion() {
     }
 
-    public Material getMaterial() {
-        return material;
+    public OrdenProduccion(Long id, float precioTM, float precioTO, short cantidad) {
+        this.id = id;
+        this.precioTM = precioTM;
+        this.precioTO = precioTO;
+        this.cantidad = cantidad;
     }
 
-    public void setMaterial(Material material) {
-        this.material = material;
+    public OrdenProduccion(float precioTM, float precioTO, short cantidad) {
+        this.precioTM = precioTM;
+        this.precioTO = precioTO;
+        this.cantidad = cantidad;
+    }
+     
+     
+
+    public Long getId() {
+        return id;
     }
 
-    public float getPrecioTotalMaterial() {
-        return precioTotalMaterial;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPrecioTotalMaterial(float precioTotalMaterial) {
-        this.precioTotalMaterial = precioTotalMaterial;
+    public float getPrecioTM() {
+        return precioTM;
     }
 
-    public float getPrecioTotalOrden() {
-        return precioTotalOrden;
+    public void setPrecioTM(float precioTM) {
+        this.precioTM = precioTM;
     }
 
-    public void setPrecioTotalOrden(float precioTotalOrden) {
-        this.precioTotalOrden = precioTotalOrden;
+    public float getPrecioTO() {
+        return precioTO;
+    }
+
+    public void setPrecioTO(float precioTO) {
+        this.precioTO = precioTO;
     }
 
     public short getCantidad() {
@@ -56,10 +83,31 @@ public class OrdenProduccion {
         this.cantidad = cantidad;
     }
 
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof OrdenProduccion)) {
+            return false;
+        }
+        OrdenProduccion other = (OrdenProduccion) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
-        return "OrdenProduccion{" + "material=" + material + ", precioTotalMaterial=" + precioTotalMaterial + ", precioTotalOrden=" + precioTotalOrden + ", cantidad=" + cantidad + '}';
+        return "com.futuresoft.sistemamovagro_dominio.OrdenProduccion[ id=" + id + " ]";
     }
-    
     
 }

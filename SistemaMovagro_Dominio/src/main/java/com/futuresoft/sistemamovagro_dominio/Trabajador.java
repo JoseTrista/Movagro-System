@@ -4,16 +4,51 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
- * @author Equipo Movagro
+ * @author oscar
  */
-public class Trabajador {
+@Entity
+public class Trabajador implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(name = "Nombre")
     private String nombre;
+    
+    @Column(name = "Numero")
     private String numero;
+    
+    @Column(name = "Usuario")
     private String usuario;
+    
+    @Column(name = "Contraseña")
     private String contraseña;
+    
+    @Column(name = "Correo")
     private String correo;
+
+    public Trabajador() {
+    }
+
+    public Trabajador(Long id, String nombre, String numero, String usuario, String contraseña, String correo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.numero = numero;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+        this.correo = correo;
+    }
 
     public Trabajador(String nombre, String numero, String usuario, String contraseña, String correo) {
         this.nombre = nombre;
@@ -23,7 +58,15 @@ public class Trabajador {
         this.correo = correo;
     }
 
-    public Trabajador() {
+    
+    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -65,11 +108,32 @@ public class Trabajador {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Trabajador)) {
+            return false;
+        }
+        Trabajador other = (Trabajador) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toString() {
-        return "Trabajador{" + "nombre=" + nombre + ", numero=" + numero + ", usuario=" + usuario + ", contrase\u00f1a=" + contraseña + ", correo=" + correo + '}';
+        return "com.futuresoft.sistemamovagro_dominio.Trabajador[ id=" + id + " ]";
     }
-    
     
 }

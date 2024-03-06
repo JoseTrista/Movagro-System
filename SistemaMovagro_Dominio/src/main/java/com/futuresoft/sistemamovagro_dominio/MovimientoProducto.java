@@ -4,52 +4,60 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
- * @author Equipo Movagro
+ * @author oscar
  */
-public class MovimientoProducto extends Movimiento{
-    private List<DetalleProducto> detalleproducto;
-    private Almacenista almacenista;
+@Entity
+public class MovimientoProducto implements Serializable {
 
-    public MovimientoProducto(List<DetalleProducto> detalleproducto, Almacenista almacenista, int cantidad, Date fecha, String tipoMovimiento) {
-        super(cantidad, fecha, tipoMovimiento);
-        this.detalleproducto = detalleproducto;
-        this.almacenista = almacenista;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(name = "Detalle_Producto")
+    private List<DetalleProducto> detalleeProducto;
+
+    public Long getId() {
+        return id;
     }
 
-    public MovimientoProducto(List<DetalleProducto> detalleproducto, Almacenista almacenista) {
-        this.detalleproducto = detalleproducto;
-        this.almacenista = almacenista;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public MovimientoProducto() {
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
     }
 
-    public List<DetalleProducto> getDetalleproducto() {
-        return detalleproducto;
-    }
-
-    public void setDetalleproducto(List<DetalleProducto> detalleproducto) {
-        this.detalleproducto = detalleproducto;
-    }
-
-    public Almacenista getAlmacenista() {
-        return almacenista;
-    }
-
-    public void setAlmacenista(Almacenista almacenista) {
-        this.almacenista = almacenista;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof MovimientoProducto)) {
+            return false;
+        }
+        MovimientoProducto other = (MovimientoProducto) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "MovimientoProducto{" + "detalleproducto=" + detalleproducto + ", almacenista=" + almacenista + '}';
+        return "com.futuresoft.sistemamovagro_dominio.MovimientoProducto[ id=" + id + " ]";
     }
-    
-    
     
 }

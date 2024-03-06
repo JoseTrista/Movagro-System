@@ -4,22 +4,58 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
- * @author Equipo Movagro
+ * @author oscar
  */
-public class Material {
-    private String nombre;
-    private String descripcion;
-    private String unidadMedida;
+@Entity
+public class Material implements Serializable {
 
-    public Material(String nombre, String descripcion, String unidadMedida) {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(name = "Nombre")
+    private String nombre;
+    
+    @Column(name = "Descripcion")
+    private float descripcion;
+    
+    @Column(name = "Unidad_Medida")
+    private float unidadMedida;
+
+    public Material() {
+    }
+
+    public Material(Long id, String nombre, float descripcion, float unidadMedida) {
+        this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
     }
 
-    public Material() {
+    public Material(String nombre, float descripcion, float unidadMedida) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.unidadMedida = unidadMedida;
+    }
+    
+    
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -30,24 +66,47 @@ public class Material {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
+    public float getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
+    public void setDescripcion(float descripcion) {
         this.descripcion = descripcion;
     }
 
-    public String getUnidadMedida() {
+    public float getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(String unidadMedida) {
+    public void setUnidadMedida(float unidadMedida) {
         this.unidadMedida = unidadMedida;
+    }
+
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Material)) {
+            return false;
+        }
+        Material other = (Material) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Material{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", unidadMedida=" + unidadMedida + '}';
-    } 
+        return "com.futuresoft.sistemamovagro_dominio.Material[ id=" + id + " ]";
+    }
+    
 }

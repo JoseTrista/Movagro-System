@@ -4,54 +4,110 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
+import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
- * @author Equipo Movagro
+ * @author oscar
  */
-public class Producto {
-    private List<Material> materiales;
-    private String nombreProducto;
-    private int costoProducto;
+@Entity
+public class Producto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+     @Column(name = "Materiales")
+    private List<Material> nateriales;
+     
+      @Column(name = "Nombre_Producto")
+    private String nombreP;
+      
+      @Column(name = "Costo_Producto")
+    private String costoP;
 
     public Producto() {
     }
 
-    public Producto(List<Material> materiales, String nombreProducto, int costoProducto) {
-        this.materiales = materiales;
-        this.nombreProducto = nombreProducto;
-        this.costoProducto = costoProducto;
+    public Producto(Long id, List<Material> nateriales, String nombreP, String costoP) {
+        this.id = id;
+        this.nateriales = nateriales;
+        this.nombreP = nombreP;
+        this.costoP = costoP;
     }
 
-    public List<Material> getMateriales() {
-        return materiales;
+    public Producto(List<Material> nateriales, String nombreP, String costoP) {
+        this.nateriales = nateriales;
+        this.nombreP = nombreP;
+        this.costoP = costoP;
+    }
+      
+    
+
+    public Long getId() {
+        return id;
     }
 
-    public void setMateriales(List<Material> materiales) {
-        this.materiales = materiales;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public List<Material> getNateriales() {
+        return nateriales;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public void setNateriales(List<Material> nateriales) {
+        this.nateriales = nateriales;
     }
 
-    public int getCostoProducto() {
-        return costoProducto;
+    public String getNombreP() {
+        return nombreP;
     }
 
-    public void setCostoProducto(int costoProducto) {
-        this.costoProducto = costoProducto;
+    public void setNombreP(String nombreP) {
+        this.nombreP = nombreP;
+    }
+
+    public String getCostoP() {
+        return costoP;
+    }
+
+    public void setCostoP(String costoP) {
+        this.costoP = costoP;
+    }
+    
+    
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Producto)) {
+            return false;
+        }
+        Producto other = (Producto) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "materiales=" + materiales + ", nombreProducto=" + nombreProducto + ", costoProducto=" + costoProducto + '}';
+        return "com.futuresoft.sistemamovagro_dominio.Producto[ id=" + id + " ]";
     }
-    
     
 }

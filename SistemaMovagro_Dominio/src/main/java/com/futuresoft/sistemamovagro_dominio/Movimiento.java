@@ -4,24 +4,62 @@
  */
 package com.futuresoft.sistemamovagro_dominio;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
- * @author Equipo Movagro
+ * @author oscar
  */
-public class Movimiento {
-    private int cantidad;
-    private Date fecha;
-    private String tipoMovimiento;
+@Entity
+public class Movimiento implements Serializable {
 
-    public Movimiento(int cantidad, Date fecha, String tipoMovimiento) {
-        this.cantidad = cantidad;
-        this.fecha = fecha;
-        this.tipoMovimiento = tipoMovimiento;
-    }
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column(name = "Cantidad")
+    private int cantidad;
+    
+    @Temporal(TemporalType.DATE)
+    @Column(name = "Fecha")
+    private Date fecha;
+    
+    @Column(name = "Tipo_Movimiento")
+    private float tippMovimiento;
 
     public Movimiento() {
+    }
+
+    public Movimiento(Integer id, int cantidad, Date fecha, float tippMovimiento) {
+        this.id = id;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+        this.tippMovimiento = tippMovimiento;
+    }
+
+    public Movimiento(int cantidad, Date fecha, float tippMovimiento) {
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+        this.tippMovimiento = tippMovimiento;
+    }
+    
+    
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getCantidad() {
@@ -40,18 +78,39 @@ public class Movimiento {
         this.fecha = fecha;
     }
 
-    public String getTipoMovimiento() {
-        return tipoMovimiento;
+    public float getTippMovimiento() {
+        return tippMovimiento;
     }
 
-    public void setTipoMovimiento(String tipoMovimiento) {
-        this.tipoMovimiento = tipoMovimiento;
+    public void setTippMovimiento(float tippMovimiento) {
+        this.tippMovimiento = tippMovimiento;
+    }
+
+    
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Movimiento)) {
+            return false;
+        }
+        Movimiento other = (Movimiento) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Movimiento{" + "cantidad=" + cantidad + ", fecha=" + fecha + ", tipoMovimiento=" + tipoMovimiento + '}';
+        return "com.futuresoft.sistemamovagro_dominio.Movimiento[ id=" + id + " ]";
     }
-    
     
 }

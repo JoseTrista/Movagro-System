@@ -5,11 +5,14 @@
 package com.futuresoft.sistemamovagro_dominio;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -37,6 +40,9 @@ public class Secretaria implements Serializable {
     
     @Column(name = "Correo")
     private String correo;
+
+    @OneToMany(mappedBy = "secretaria", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Compra> compras;
 
     public Secretaria() {
     }
@@ -109,7 +115,13 @@ public class Secretaria implements Serializable {
         this.correo = correo;
     }
     
-    
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
+    }
 
     @Override
     public int hashCode() {
@@ -135,5 +147,7 @@ public class Secretaria implements Serializable {
     public String toString() {
         return "com.futuresoft.sistemamovagro_dominio.Secretari[ id=" + id + " ]";
     }
+
+    
     
 }

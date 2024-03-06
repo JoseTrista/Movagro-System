@@ -11,6 +11,10 @@ package com.futuresoft.sistemamovagro_datos;
 public class SistemaMovagro_Datos {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Conexion conexionBD = new Conexion("Movagro");
+        
+        conexionBD.getEM().getTransaction().begin();
+        //conexionBD.getEM().persist(new Material());
+        conexionBD.getEM().getTransaction().commit();
     }
 }

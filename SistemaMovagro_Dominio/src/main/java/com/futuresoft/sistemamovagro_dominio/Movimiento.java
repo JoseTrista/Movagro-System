@@ -34,7 +34,7 @@ public class Movimiento implements Serializable {
     private Date fecha;
     
     @Column(name = "Tipo_Movimiento")
-    private float tippMovimiento;
+    private float tipoMovimiento;
 
     public Movimiento() {
     }
@@ -43,13 +43,13 @@ public class Movimiento implements Serializable {
         this.id = id;
         this.cantidad = cantidad;
         this.fecha = fecha;
-        this.tippMovimiento = tippMovimiento;
+        this.tipoMovimiento = tippMovimiento;
     }
 
     public Movimiento(int cantidad, Date fecha, float tippMovimiento) {
         this.cantidad = cantidad;
         this.fecha = fecha;
-        this.tippMovimiento = tippMovimiento;
+        this.tipoMovimiento = tippMovimiento;
     }
     
     
@@ -79,11 +79,11 @@ public class Movimiento implements Serializable {
     }
 
     public float getTippMovimiento() {
-        return tippMovimiento;
+        return tipoMovimiento;
     }
 
     public void setTippMovimiento(float tippMovimiento) {
-        this.tippMovimiento = tippMovimiento;
+        this.tipoMovimiento = tippMovimiento;
     }
 
     

@@ -11,12 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Equipo Movagro
  */
 @Entity
+@Table(name = "Movimiento Producto")
 public class MovimientoProducto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,7 +28,8 @@ public class MovimientoProducto implements Serializable {
     private Long id;
     
     @Column(name = "Detalle_Producto")
-    private List<DetalleProducto> detalleeProducto;
+    @OneToMany(mappedBy = "movimientoProducto")
+    private List<DetalleProducto> detalleProductos;
 
     public Long getId() {
         return id;
@@ -35,6 +39,14 @@ public class MovimientoProducto implements Serializable {
         this.id = id;
     }
 
+    public List<DetalleProducto> getDetalleProductos() {
+        return detalleProductos;
+    }
+
+    public void setDetalleProductos(List<DetalleProducto> detalleProductos) {
+        this.detalleProductos = detalleProductos;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

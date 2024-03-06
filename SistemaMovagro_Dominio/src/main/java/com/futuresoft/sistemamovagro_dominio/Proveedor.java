@@ -5,17 +5,23 @@
 package com.futuresoft.sistemamovagro_dominio;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Equipo Movagro 
  */
 @Entity
+@Table(name = "Proveedor")
 public class Proveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,26 +40,25 @@ public class Proveedor implements Serializable {
     
     @Column(name = "Nombre")
     private String nombre;
+    
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Material> materiales;
+
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Compra> compras;
 
     public Proveedor() {
     }
 
-    public Proveedor(Long id, String rfc, String tekefono, String direccion, String nombre) {
+    public Proveedor(Long id, String rfc, String tekefono, String direccion, String nombre, List<Material> materiales, List<Compra> compras) {
         this.id = id;
         this.rfc = rfc;
         this.tekefono = tekefono;
         this.direccion = direccion;
         this.nombre = nombre;
+        this.materiales = materiales;
+        this.compras = compras;
     }
-
-    public Proveedor(String rfc, String tekefono, String direccion, String nombre) {
-        this.rfc = rfc;
-        this.tekefono = tekefono;
-        this.direccion = direccion;
-        this.nombre = nombre;
-    }
-    
-    
 
     public Long getId() {
         return id;
@@ -94,32 +99,73 @@ public class Proveedor implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    
+
+    public List<Material> getMateriales() {
+        return materiales;
+    }
+
+    public void setMateriales(List<Material> materiales) {
+        this.materiales = materiales;
+    }
+
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.rfc);
+        hash = 79 * hash + Objects.hashCode(this.tekefono);
+        hash = 79 * hash + Objects.hashCode(this.direccion);
+        hash = 79 * hash + Objects.hashCode(this.nombre);
+        hash = 79 * hash + Objects.hashCode(this.materiales);
+        hash = 79 * hash + Objects.hashCode(this.compras);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Proveedor)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Proveedor other = (Proveedor) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        return true;
+        final Proveedor other = (Proveedor) obj;
+        if (!Objects.equals(this.rfc, other.rfc)) {
+            return false;
+        }
+        if (!Objects.equals(this.tekefono, other.tekefono)) {
+            return false;
+        }
+        if (!Objects.equals(this.direccion, other.direccion)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.materiales, other.materiales)) {
+            return false;
+        }
+        return Objects.equals(this.compras, other.compras);
     }
 
     @Override
     public String toString() {
-        return "com.futuresoft.sistemamovagro_dominio.Proveedo[ id=" + id + " ]";
+        return "Proveedor{" + "id=" + id + ", rfc=" + rfc + ", tekefono=" + tekefono + ", direccion=" + direccion + ", nombre=" + nombre + ", materiales=" + materiales + ", compras=" + compras + '}';
     }
+
     
 }

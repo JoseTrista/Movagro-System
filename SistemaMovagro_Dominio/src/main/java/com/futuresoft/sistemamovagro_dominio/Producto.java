@@ -11,12 +11,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Equipo Movagro
  */
 @Entity
+@Table(name = "Producto")
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -24,15 +30,26 @@ public class Producto implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-     @Column(name = "Materiales")
+    @Column(name = "Materiales")
     private List<Material> nateriales;
      
-      @Column(name = "Nombre_Producto")
+    @Column(name = "Nombre_Producto")
     private String nombreP;
       
-      @Column(name = "Costo_Producto")
+    @Column(name = "Costo_Producto")
     private String costoP;
 
+    @ManyToMany
+    @JoinTable(
+        name = "producto_material", 
+        joinColumns = @JoinColumn(name = "producto_id"), 
+        inverseJoinColumns = @JoinColumn(name = "material_id")
+    )
+    private List<Material> materiales;
+    
+    @OneToMany(mappedBy = "producto")
+    private List<DetalleProducto> detalleProductos;
+    
     public Producto() {
     }
 
@@ -81,6 +98,22 @@ public class Producto implements Serializable {
 
     public void setCostoP(String costoP) {
         this.costoP = costoP;
+    }
+    
+    public List<Material> getMateriales() {
+        return materiales;
+    }
+
+    public void setMateriales(List<Material> materiales) {
+        this.materiales = materiales;
+    }
+
+    public List<DetalleProducto> getDetalleProductos() {
+        return detalleProductos;
+    }
+
+    public void setDetalleProductos(List<DetalleProducto> detalleProductos) {
+        this.detalleProductos = detalleProductos;
     }
     
     

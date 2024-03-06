@@ -11,12 +11,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Equipo Movagro
  */
 @Entity
+@Table(name="Orden Produccion")
 public class OrdenProduccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,6 +37,15 @@ public class OrdenProduccion implements Serializable {
      @Column(name = "cantidad")
     private short cantidad;
 
+     
+    @ManyToOne
+    @JoinColumn(name = "material_id")
+    private Material material;
+    
+    @ManyToOne
+    @JoinColumn(name = "movimientoMaterial_id")
+    private MovimientoMaterial movimientoMaterial;
+    
     public OrdenProduccion() {
     }
 
@@ -81,6 +94,22 @@ public class OrdenProduccion implements Serializable {
 
     public void setCantidad(short cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public MovimientoMaterial getMovimientoMaterial() {
+        return movimientoMaterial;
+    }
+
+    public void setMovimientoMaterial(MovimientoMaterial movimientoMaterial) {
+        this.movimientoMaterial = movimientoMaterial;
     }
 
     

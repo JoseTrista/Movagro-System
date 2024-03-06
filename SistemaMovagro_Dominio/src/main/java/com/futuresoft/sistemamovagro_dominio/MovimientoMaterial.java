@@ -6,17 +6,21 @@ package com.futuresoft.sistemamovagro_dominio;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Equipo Movagro
  */
 @Entity
+@Table(name = "Movimiento Material")
 public class MovimientoMaterial implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,8 +33,9 @@ public class MovimientoMaterial implements Serializable {
     }
     
     @Column(name = "Orden_Produccion")
-    private List<OrdenProduccion> ordenProduccion;
-
+    @OneToMany(mappedBy = "movimientoMaterial", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrdenProduccion> ordenesProduccion;
+    
     public MovimientoMaterial() {
     }
 
@@ -48,11 +53,11 @@ public class MovimientoMaterial implements Serializable {
     }
 
     public List<OrdenProduccion> getOrdenProduccion() {
-        return ordenProduccion;
+        return ordenesProduccion;
     }
 
     public void setOrdenProduccion(List<OrdenProduccion> ordenProduccion) {
-        this.ordenProduccion = ordenProduccion;
+        this.ordenesProduccion = ordenProduccion;
     }
     
     

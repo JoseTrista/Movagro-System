@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -28,6 +30,14 @@ public class DetalleCompra implements Serializable {
     
     @Column(name = "Cantidad")
     private short cantidad;
+    
+    @ManyToOne
+    @JoinColumn(name = "compra_id", nullable = false)
+    private Compra compra;
+
+    @ManyToOne
+    @JoinColumn(name = "material_id", nullable = false)
+    private Material material;
 
     public DetalleCompra() {
     }

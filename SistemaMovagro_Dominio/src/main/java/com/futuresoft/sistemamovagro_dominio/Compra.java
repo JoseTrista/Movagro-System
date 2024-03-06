@@ -14,12 +14,18 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Equipo Movagro 
  */
 @Entity
+@Table(name = "Compra")
 public class Compra implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,31 +42,39 @@ public class Compra implements Serializable {
     
     @Column(name = "Costo total")
     private String costo;
-    
-    @Column(name = "Detalle compra")
+        
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleCompra> detalleCompra;
 
+    @ManyToOne
+    @JoinColumn(name = "proveedor_id")
+    private Proveedor proveedor;
     
+    @ManyToOne
+    @JoinColumn(name = "secretaria_id")
+    private Secretaria secretaria;
     
-    
-
     public Compra() {
     }
 
-    public Compra(Integer id, Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra) {
+    public Compra(Integer id, Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.id = id;
         this.fecha = fecha;
         this.condicion = condicion;
         this.costo = costo;
         this.detalleCompra = detalleCompra;
+        this.proveedor = proveedor;
     }
 
-    public Compra(Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra) {
+    public Compra(Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.fecha = fecha;
         this.condicion = condicion;
         this.costo = costo;
         this.detalleCompra = detalleCompra;
+        this.proveedor = proveedor;
     }
+
+    
     
     public Integer getId() {
         return id;
@@ -102,10 +116,22 @@ public class Compra implements Serializable {
         this.detalleCompra = detalleCompra;
     }
     
-    
-    
-    
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
 
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+ 
+    public Secretaria getSecretaria() {
+        return secretaria;
+    }
+
+    public void setSecretaria(Secretaria secretaria) {
+        this.secretaria = secretaria;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

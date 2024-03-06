@@ -10,12 +10,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
- * @author oscar
+ * @author Equipo Movagro
  */
 @Entity
+@Table(name = "Detalle Producto")
 public class DetalleProducto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,6 +30,14 @@ public class DetalleProducto implements Serializable {
     @Column(name = "Cantidad")
     private int cantidad;
 
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
+    
+    @ManyToOne
+    @JoinColumn(name = "movimientoProducto_id")
+    private MovimientoProducto movimientoProducto;
+    
     public DetalleProducto() {
     }
 
@@ -54,6 +66,22 @@ public class DetalleProducto implements Serializable {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public MovimientoProducto getMovimientoProducto() {
+        return movimientoProducto;
+    }
+
+    public void setMovimientoProducto(MovimientoProducto movimientoProducto) {
+        this.movimientoProducto = movimientoProducto;
     }
     
     

@@ -32,7 +32,6 @@ public class MovimientoMaterial implements Serializable {
         return id;
     }
     
-    @Column(name = "Orden_Produccion")
     @OneToMany(mappedBy = "movimientoMaterial", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrdenProduccion> ordenesProduccion;
     

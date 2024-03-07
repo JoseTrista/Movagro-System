@@ -40,7 +40,7 @@ public class Compra implements Serializable {
     @Column(name = "Condicion")
     private String condicion;
     
-    @Column(name = "Costo total")
+    @Column(name = "Costo_total")
     private String costo;
         
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -4,9 +4,6 @@
  */
 package com.futuresoft.sistemamovagro_datos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,15 +16,6 @@ public class Conexion implements IConexion{
     
     private EntityManager entityManager;
     private String nombrePersistencia;
-    
-    final String CADENA_CONEXION ="jdbc:mysql://127.0.0.1:3306/Movagro";
-    final String USUARIO = "root";
-    final String CONTRASEÑA ="Movagro123.,";
-    
-    public Connection crearConexion() throws SQLException {
-       Connection conexion =DriverManager.getConnection(CADENA_CONEXION, USUARIO, CONTRASEÑA);
-       return conexion;
-    }
 
     public Conexion(String nombrePersistencia) {
         this.nombrePersistencia = nombrePersistencia;

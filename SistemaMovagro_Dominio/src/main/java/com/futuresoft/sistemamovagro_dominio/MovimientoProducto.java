@@ -27,7 +27,6 @@ public class MovimientoProducto implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "Detalle_Producto")
     @OneToMany(mappedBy = "movimientoProducto")
     private List<DetalleProducto> detalleProductos;
 

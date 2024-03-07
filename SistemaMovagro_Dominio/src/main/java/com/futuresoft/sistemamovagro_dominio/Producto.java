@@ -30,8 +30,6 @@ public class Producto implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(name = "Materiales")
-    private List<Material> nateriales;
      
     @Column(name = "Nombre_Producto")
     private String nombreP;
@@ -55,13 +53,13 @@ public class Producto implements Serializable {
 
     public Producto(Long id, List<Material> nateriales, String nombreP, String costoP) {
         this.id = id;
-        this.nateriales = nateriales;
+        this.materiales = nateriales;
         this.nombreP = nombreP;
         this.costoP = costoP;
     }
 
     public Producto(List<Material> nateriales, String nombreP, String costoP) {
-        this.nateriales = nateriales;
+        this.materiales = nateriales;
         this.nombreP = nombreP;
         this.costoP = costoP;
     }
@@ -77,11 +75,11 @@ public class Producto implements Serializable {
     }
 
     public List<Material> getNateriales() {
-        return nateriales;
+        return materiales;
     }
 
     public void setNateriales(List<Material> nateriales) {
-        this.nateriales = nateriales;
+        this.materiales = nateriales;
     }
 
     public String getNombreP() {

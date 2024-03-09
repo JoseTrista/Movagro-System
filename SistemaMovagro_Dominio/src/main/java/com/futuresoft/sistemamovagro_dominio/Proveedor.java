@@ -44,7 +44,7 @@ public class Proveedor implements Serializable {
     @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Material> materiales;
 
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Compra> compras;
 
     public Proveedor() {
@@ -52,6 +52,23 @@ public class Proveedor implements Serializable {
 
     public Proveedor(Long id, String rfc, String tekefono, String direccion, String nombre, List<Material> materiales, List<Compra> compras) {
         this.id = id;
+        this.rfc = rfc;
+        this.tekefono = tekefono;
+        this.direccion = direccion;
+        this.nombre = nombre;
+        this.materiales = materiales;
+        this.compras = compras;
+    }
+
+    
+    public Proveedor(String rfc, String tekefono, String direccion, String nombre) {
+        this.rfc = rfc;
+        this.tekefono = tekefono;
+        this.direccion = direccion;
+        this.nombre = nombre;
+    }
+
+    public Proveedor(String rfc, String tekefono, String direccion, String nombre, List<Material> materiales, List<Compra> compras) {
         this.rfc = rfc;
         this.tekefono = tekefono;
         this.direccion = direccion;

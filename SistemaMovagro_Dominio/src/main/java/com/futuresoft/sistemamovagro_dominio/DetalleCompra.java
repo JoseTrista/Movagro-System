@@ -52,6 +52,22 @@ public class DetalleCompra implements Serializable {
         this.costoUnitario = costoUnitario;
         this.cantidad = cantidad;
     }
+
+    public Compra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(Compra compra) {
+        this.compra = compra;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
     
     
 

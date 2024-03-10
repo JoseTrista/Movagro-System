@@ -16,24 +16,24 @@ import java.util.List;
 public class SistemaMovagro_Datos {
 
     public static void main(String[] args) {
-        Conexion conexionBD = new Conexion("com.FutureSoft_SistemaMovagro_Dominio_jar_1.0-SNAPSHOTPU");
-
-        DetalleCompra detalle = new DetalleCompra(45.5f, (short) 5);
-        List<DetalleCompra> detalleCompra = new ArrayList<>();
-        List<Material> materiales = new ArrayList<>();
-        List<Compra> compras = new ArrayList<>();
-        detalleCompra.add(detalle);
- 
-        Secretaria secretaria = new Secretaria("Juana","48495", "Juana1233", "Juanito233", "JJ@gmial.com");
-        Proveedor proveedor = new Proveedor("SRDF4588", "64452613", "Bellavista", "Juan");
-        Compra compra = new Compra(new Date(124, 10, 5), "30 días crédito", "2900", proveedor,secretaria);
-        Almacenista almacenista = new Almacenista("Ivan", "52632", "IvanB", "Ivan13732", "Ivan@gmail.com");
-        detalle.setCompra(compra); // Asegúrate de que este método esté definido en DetalleCompra
-
-        // Si necesitas agregar compras a proveedor o configurar otras relaciones, hazlo aquí
-        conexionBD.getEM().getTransaction().begin();
-        conexionBD.getEM().persist(almacenista);
-        conexionBD.getEM().persist(proveedor); // Persiste el proveedor y, por cascada, sus relaciones
-        conexionBD.getEM().getTransaction().commit();
+//        Conexion conexionBD = new Conexion("com.FutureSoft_SistemaMovagro_Dominio_jar_1.0-SNAPSHOTPU");
+//
+//        DetalleCompra detalle = new DetalleCompra(45.5f, (short) 5);
+//        List<DetalleCompra> detalleCompra = new ArrayList<>();
+//        List<Material> materiales = new ArrayList<>();
+//        List<Compra> compras = new ArrayList<>();
+//        detalleCompra.add(detalle);
+// 
+//        Secretaria secretaria = new Secretaria("Juana","48495", "Juana1233", "Juanito233", "JJ@gmial.com");
+//        Proveedor proveedor = new Proveedor("SRDF4588", "64452613", "Bellavista", "Juan");
+//        Compra compra = new Compra(new Date(124, 10, 5), "30 días crédito", "2900", proveedor,secretaria);
+//        Almacenista almacenista = new Almacenista("Ivan", "52632", "IvanB", "Ivan13732", "Ivan@gmail.com");
+//        detalle.setCompra(compra); // Asegúrate de que este método esté definido en DetalleCompra
+//
+//        // Si necesitas agregar compras a proveedor o configurar otras relaciones, hazlo aquí
+//        conexionBD.getEM().getTransaction().begin();
+//        conexionBD.getEM().persist(almacenista);
+//        conexionBD.getEM().persist(proveedor); // Persiste el proveedor y, por cascada, sus relaciones
+//        conexionBD.getEM().getTransaction().commit();
     }
 }

@@ -24,3 +24,5 @@ hs_err_pid*
 replay_pid*
 /SistemaMovagro_Datos/target/
 /SistemaMovagro_Dominio/target/
+/SistemaMovagro_Negocio/target/
+/SistemaMovagro_Presentacion/target/

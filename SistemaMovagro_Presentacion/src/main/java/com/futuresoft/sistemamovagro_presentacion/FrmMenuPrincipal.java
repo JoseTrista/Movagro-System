@@ -4,16 +4,22 @@
  */
 package com.futuresoft.sistemamovagro_presentacion;
 
+import com.futuresoft.sistemamovagro_dominio.Proveedor;
+import com.futuresoft.sistemamovagro_negocio.ControlProveedor;
+import com.futuresoft.sistemamovagro_negocio.INegocio;
+import java.util.List;
+
 /**
  *
  * @author jctri
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
-
+    INegocio negocio;
     /**
      * Creates new form FrmMenuPrincipal
      */
     public FrmMenuPrincipal() {
+        negocio = new ControlProveedor();
         initComponents();
     }
 
@@ -63,6 +69,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnActualizar.setText("Actualizar Compra");
 
         btnRegistrar.setText("Registrar Compra");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar Compra");
 
@@ -105,6 +116,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        List<Proveedor> lista = negocio.recuperaProveedor();
+        System.out.println(lista);
+        FrmAdministrarCompra frmAdministrar = new FrmAdministrarCompra(lista);
+        frmAdministrar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -183,6 +183,4 @@ public class Proveedor implements Serializable {
     public String toString() {
         return "Proveedor{" + "id=" + id + ", rfc=" + rfc + ", tekefono=" + tekefono + ", direccion=" + direccion + ", nombre=" + nombre + ", materiales=" + materiales + ", compras=" + compras + '}';
     }
-
-    
 }

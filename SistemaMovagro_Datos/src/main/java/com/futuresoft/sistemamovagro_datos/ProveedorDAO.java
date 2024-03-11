@@ -4,7 +4,9 @@
  */
 package com.futuresoft.sistemamovagro_datos;
 
+import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -32,6 +34,24 @@ public class ProveedorDAO implements IDatos{
             e.printStackTrace();
             return null; 
         }
+    }
+    
+  
+    @Override
+    public List<Material> mostrarMaterial(Proveedor proveedor) {
+        
+       EntityManager em = conexion.getEM();
+    try {
+        // Asumiendo que existe una relación entre Proveedor y Material llamada "materiales"
+        List<Material> listaMateriales = em.createQuery("SELECT m FROM Material m WHERE m.proveedor = :proveedor", Material.class)
+                .setParameter("proveedor", proveedor)
+                .getResultList();
+        return listaMateriales;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+    }
+
     }
     
 }

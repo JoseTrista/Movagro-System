@@ -4,11 +4,16 @@
  */
 package com.futuresoft.sistemamovagro_presentacion;
 
+import com.futuresoft.sistemamovagro_datos.IDatos;
+import com.futuresoft.sistemamovagro_datos.ProveedorDAO;
+import com.futuresoft.sistemamovagro_dominio.Material;
+import static com.futuresoft.sistemamovagro_dominio.Material_.proveedor;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_negocio.ControlProveedor;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,8 +41,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
 
@@ -49,7 +52,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         btnRegistrar.setBackground(new java.awt.Color(0, 153, 204));
         btnRegistrar.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("Registrar cliente");
+        btnRegistrar.setText("Registrar compra");
         btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnRegistrarMouseEntered(evt);
@@ -68,12 +71,6 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
         jLabel1.setText("MENU PRINCIPAL");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logo movagro.jpg"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, -1, 320));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/favicon.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, 36));
 
         btnActualizar.setBackground(new java.awt.Color(0, 153, 204));
         btnActualizar.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
@@ -136,7 +133,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarMouseExited
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        
+                                                
+        List<Proveedor> lista = negocio.recuperaProveedor();
+        List<Material> listam = negocio.mostrarMaterial(proveedor);
+        System.out.println(lista);
+        FrmAdministrarCompra frmAdministrar = new FrmAdministrarCompra(lista, listam);
+        frmAdministrar.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseEntered
@@ -200,13 +204,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

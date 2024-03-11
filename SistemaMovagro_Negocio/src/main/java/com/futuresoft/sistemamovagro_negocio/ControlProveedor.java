@@ -6,6 +6,7 @@ package com.futuresoft.sistemamovagro_negocio;
 
 import com.futuresoft.sistemamovagro_datos.IDatos;
 import com.futuresoft.sistemamovagro_datos.ProveedorDAO;
+import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class ControlProveedor implements INegocio{
     public List<Proveedor> recuperaProveedor() {
       return datos.recuperaProveedor();
     }
-    
-    
+
+    @Override
+    public List<Material> mostrarMaterial(Proveedor proveedor) {
+        return datos.mostrarMaterial(proveedor);
+    }
 }

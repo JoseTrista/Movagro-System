@@ -4,6 +4,7 @@
  */
 package com.futuresoft.sistemamovagro_negocio;
 
+import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import java.util.List;
 
@@ -13,4 +14,6 @@ import java.util.List;
  */
 public interface INegocio {
     public List<Proveedor> recuperaProveedor();
+    
+    public List<Material> mostrarMaterial(Proveedor proveedor);
 }

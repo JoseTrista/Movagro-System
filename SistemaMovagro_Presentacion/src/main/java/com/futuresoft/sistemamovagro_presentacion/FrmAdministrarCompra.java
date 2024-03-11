@@ -4,8 +4,12 @@
  */
 package com.futuresoft.sistemamovagro_presentacion;
 
+import com.futuresoft.sistemamovagro_dominio.Material;
+import static com.futuresoft.sistemamovagro_dominio.OrdenProduccion_.material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,13 +18,19 @@ import java.util.List;
  */
 public class FrmAdministrarCompra extends javax.swing.JFrame {
     INegocio negocio;
+     // Definir la lista de proveedores
+    private List<Proveedor> listaProveedores;
+    
     /**
      * Creates new form FrmAdministrarCompra
      * @param proveedor
      */
-    public FrmAdministrarCompra(List<Proveedor> proveedor) {
+    public FrmAdministrarCompra(List<Proveedor> proveedor, List<Material> material) {
         initComponents();
+        this.listaProveedores = proveedor;
         despliegaDatosRecuperados(proveedor);
+        despliegaDatosMaterial(material);
+      
     }
 
 //    public FrmAdministrarCompra() {
@@ -40,6 +50,38 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             evento.consume();
         }
     }
+    
+    public void despliegaDatosRecuperados(List<Proveedor> proveedor) {
+        System.out.println(proveedor);
+        for (Proveedor p : proveedor) {
+            
+            cbProovedor1.addItem(p.getNombre()); // Suponiendo que Proveedor tiene un método getNombre()
+        }
+    }
+    
+    public void despliegaDatosMaterial(List<Material> material) {
+        System.out.println(material);
+        for (Material m : material) {
+            
+            cbMaterial.addItem(m.getNombre()); // Suponiendo que Proveedor tiene un método getNombre()
+        }
+    }
+    
+    public Proveedor obtenerProveedorPorNombre(String nombreProveedor) {
+        // Iterar sobre la lista de proveedores y devolver el que coincida con el nombre
+        for (Proveedor proveedor : listaProveedores) {
+            if (proveedor.getNombre().equals(nombreProveedor)) {
+                return proveedor;
+            }
+        }
+        return null; // Si no se encuentra el proveedor con el nombre dado
+    }
+
+    public List<Material> obtenerMaterialesPorProveedor(Proveedor proveedor) {
+        // Obtener la lista de materiales asociados al proveedor
+        // Supongamos que hay un método en Proveedor para obtener los materiales asociados
+        return proveedor.getMateriales();
+    }
 
     
     /**
@@ -52,10 +94,9 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        cbProovedor = new javax.swing.JComboBox<>();
+        cbMaterial = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtMaterial = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -70,34 +111,27 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         btnPDF = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        cbProovedor1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.add(cbProovedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 102, 418, -1));
+        cbMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMaterialActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 410, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Proveedor");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 104, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Nombre Material");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 154, -1, -1));
-
-        txtMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaterialActionPerformed(evt);
-            }
-        });
-        txtMaterial.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtMaterialKeyTyped(evt);
-            }
-        });
-        jPanel2.add(txtMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 152, 418, -1));
+        jLabel3.setText(" Material");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Cantidad");
@@ -169,14 +203,23 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jLabel1.setText("Administrar Compra");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/favicon.png"))); // NOI18N
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 23, -1, -1));
+        cbProovedor1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbProovedor1ItemStateChanged(evt);
+            }
+        });
+        cbProovedor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbProovedor1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cbProovedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 102, 418, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,10 +228,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaterialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaterialActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         // TODO add your handling code here:
@@ -218,16 +257,30 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCantidadKeyTyped
 
-    private void txtMaterialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaterialKeyTyped
-        this.validarMarca(evt);
-    }//GEN-LAST:event_txtMaterialKeyTyped
-    public void despliegaDatosRecuperados(List<Proveedor> proveedor) {
-        System.out.println(proveedor);
-        for (Proveedor p : proveedor) {
-            
-            cbProovedor.addItem(p.getNombre()); // Suponiendo que Proveedor tiene un método getNombre()
+    private void cbMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaterialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMaterialActionPerformed
+
+    private void cbProovedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProovedor1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbProovedor1ActionPerformed
+
+    private void cbProovedor1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbProovedor1ItemStateChanged
+    
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+        // Obtener el proveedor seleccionado
+        String nombreProveedor = (String) cbProovedor1.getSelectedItem();
+        
+        // Lógica para obtener y desplegar los materiales asociados al proveedor seleccionado
+        Proveedor proveedorSeleccionado = obtenerProveedorPorNombre(nombreProveedor);
+        if (proveedorSeleccionado != null) {
+            List<Material> materialesProveedor = obtenerMaterialesPorProveedor(proveedorSeleccionado);
+            despliegaDatosMaterial(materialesProveedor);
         }
     }
+
+    }//GEN-LAST:event_cbProovedor1ItemStateChanged
+    
 //    /**
 //     * @param args the command line arguments
 //     */
@@ -271,18 +324,17 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> cbProovedor;
+    private javax.swing.JComboBox<String> cbMaterial;
+    private javax.swing.JComboBox<String> cbProovedor1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDetalleCompra;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCosto;
-    private javax.swing.JTextField txtMaterial;
     // End of variables declaration//GEN-END:variables
 }

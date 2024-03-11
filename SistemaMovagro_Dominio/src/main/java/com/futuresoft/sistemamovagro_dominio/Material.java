@@ -35,10 +35,10 @@ public class Material implements Serializable {
     private String nombre;
     
     @Column(name = "Descripcion")
-    private float descripcion;
+    private String descripcion;
     
     @Column(name = "Unidad_Medida")
-    private float unidadMedida;
+    private String unidadMedida;
     
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleCompra> detallesCompra;
@@ -56,7 +56,7 @@ public class Material implements Serializable {
     public Material() {
     }
 
-    public Material(Long id, String nombre, float descripcion, float unidadMedida, List<DetalleCompra> detallesCompra, Proveedor proveedor) {
+    public Material(Long id, String nombre, String descripcion, String unidadMedida, List<DetalleCompra> detallesCompra, Proveedor proveedor) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -65,7 +65,7 @@ public class Material implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public Material(String nombre, float descripcion, float unidadMedida, List<DetalleCompra> detallesCompra, Proveedor proveedor) {
+    public Material(String nombre, String descripcion, String unidadMedida, List<DetalleCompra> detallesCompra, Proveedor proveedor) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
@@ -90,19 +90,19 @@ public class Material implements Serializable {
         this.nombre = nombre;
     }
 
-    public float getDescripcion() {
+    public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(float descripcion) {
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    public float getUnidadMedida() {
+    public String getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(float unidadMedida) {
+    public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
@@ -137,32 +137,10 @@ public class Material implements Serializable {
     public void setOrdenesProduccion(List<OrdenProduccion> ordenesProduccion) {
         this.ordenesProduccion = ordenesProduccion;
     }
-    
-    
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Material)) {
-            return false;
-        }
-        Material other = (Material) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public String toString() {
-        return "com.futuresoft.sistemamovagro_dominio.Material[ id=" + id + " ]";
+        return "Material{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", unidadMedida=" + unidadMedida + ", detallesCompra=" + detallesCompra + ", proveedor=" + proveedor + ", productos=" + productos + ", ordenesProduccion=" + ordenesProduccion + '}';
     }
-   
+    
 }

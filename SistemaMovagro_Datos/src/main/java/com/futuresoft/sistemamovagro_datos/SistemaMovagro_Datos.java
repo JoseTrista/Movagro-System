@@ -35,5 +35,12 @@ public class SistemaMovagro_Datos {
 //        conexionBD.getEM().persist(almacenista);
 //        conexionBD.getEM().persist(proveedor); // Persiste el proveedor y, por cascada, sus relaciones
 //        conexionBD.getEM().getTransaction().commit();
+//        ProveedorDAO pro =  new ProveedorDAO();
+//        List<Proveedor> lista = pro.recuperaProveedor();
+//        for (Proveedor proveedor : lista) {
+//            for (Material materiale : proveedor.getMateriales()) {
+//                System.out.println(proveedor.getNombre()+" TIENE: "+materiale.getNombre());
+//            }
+//        }
     }
 }

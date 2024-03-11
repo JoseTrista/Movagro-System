@@ -12,6 +12,7 @@ import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_negocio.ControlProveedor;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -135,9 +136,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
                                                 
         List<Proveedor> lista = negocio.recuperaProveedor();
-        List<Material> listam = negocio.mostrarMaterial(proveedor);
         System.out.println(lista);
-        FrmAdministrarCompra frmAdministrar = new FrmAdministrarCompra(lista, listam);
+        FrmAdministrarCompra frmAdministrar = new FrmAdministrarCompra(lista);
         frmAdministrar.setVisible(true);
         this.dispose();
 

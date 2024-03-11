@@ -25,12 +25,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
      * Creates new form FrmAdministrarCompra
      * @param proveedor
      */
-    public FrmAdministrarCompra(List<Proveedor> proveedor, List<Material> material) {
+    public FrmAdministrarCompra(List<Proveedor> proveedor) {
         initComponents();
         this.listaProveedores = proveedor;
         despliegaDatosRecuperados(proveedor);
-        despliegaDatosMaterial(material);
-      
+        despliegaDatosMaterial();
     }
 
 //    public FrmAdministrarCompra() {
@@ -55,15 +54,18 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         System.out.println(proveedor);
         for (Proveedor p : proveedor) {
             
-            cbProovedor1.addItem(p.getNombre()); // Suponiendo que Proveedor tiene un método getNombre()
+            cbProovedor1.addItem(p);
         }
     }
     
-    public void despliegaDatosMaterial(List<Material> material) {
+    public void despliegaDatosMaterial() {
         System.out.println(material);
-        for (Material m : material) {
+        cbMaterial.removeAllItems();
+        Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
+        List <Material> materiales = proveedor.getMateriales();
+        for (Material m : materiales) {
             
-            cbMaterial.addItem(m.getNombre()); // Suponiendo que Proveedor tiene un método getNombre()
+            cbMaterial.addItem(m);
         }
     }
     
@@ -82,7 +84,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         // Supongamos que hay un método en Proveedor para obtener los materiales asociados
         return proveedor.getMateriales();
     }
-
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,6 +187,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 87, -1));
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 93, -1));
 
         btnPDF.setText("PDF");
@@ -203,11 +209,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jLabel1.setText("Administrar Compra");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        cbProovedor1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbProovedor1ItemStateChanged(evt);
-            }
-        });
         cbProovedor1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbProovedor1ActionPerformed(evt);
@@ -230,7 +231,9 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
+       FrmMenuPrincipal principal = new FrmMenuPrincipal();
+       principal.setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -262,24 +265,13 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_cbMaterialActionPerformed
 
     private void cbProovedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProovedor1ActionPerformed
-        // TODO add your handling code here:
+       despliegaDatosMaterial();
     }//GEN-LAST:event_cbProovedor1ActionPerformed
 
-    private void cbProovedor1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbProovedor1ItemStateChanged
-    
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-        // Obtener el proveedor seleccionado
-        String nombreProveedor = (String) cbProovedor1.getSelectedItem();
-        
-        // Lógica para obtener y desplegar los materiales asociados al proveedor seleccionado
-        Proveedor proveedorSeleccionado = obtenerProveedorPorNombre(nombreProveedor);
-        if (proveedorSeleccionado != null) {
-            List<Material> materialesProveedor = obtenerMaterialesPorProveedor(proveedorSeleccionado);
-            despliegaDatosMaterial(materialesProveedor);
-        }
-    }
-
-    }//GEN-LAST:event_cbProovedor1ItemStateChanged
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtCantidad.setText("");
+        txtCosto.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
     
 //    /**
 //     * @param args the command line arguments
@@ -324,8 +316,8 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnPDF;
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> cbMaterial;
-    private javax.swing.JComboBox<String> cbProovedor1;
+    private javax.swing.JComboBox<Material> cbMaterial;
+    private javax.swing.JComboBox<Proveedor> cbProovedor1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

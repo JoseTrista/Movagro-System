@@ -140,7 +140,7 @@ public class Material implements Serializable {
 
     @Override
     public String toString() {
-        return "Material{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", unidadMedida=" + unidadMedida + ", detallesCompra=" + detallesCompra + ", proveedor=" + proveedor + ", productos=" + productos + ", ordenesProduccion=" + ordenesProduccion + '}';
+        return nombre;
     }
     
 }

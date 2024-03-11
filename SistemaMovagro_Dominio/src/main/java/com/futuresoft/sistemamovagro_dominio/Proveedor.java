@@ -181,6 +181,6 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "Proveedor{" + "id=" + id + ", rfc=" + rfc + ", tekefono=" + tekefono + ", direccion=" + direccion + ", nombre=" + nombre + ", materiales=" + materiales + ", compras=" + compras + '}';
+        return nombre;
     }
 }

@@ -4,28 +4,35 @@
  */
 package com.futuresoft.sistemamovagro_presentacion;
 
+import com.futuresoft.sistemamovagro_dominio.Compra;
+import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
-import static com.futuresoft.sistemamovagro_dominio.OrdenProduccion_.material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
+import com.futuresoft.sistemamovagro_dominio.Secretaria;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.awt.event.ItemEvent;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 /**
  *
  * @author jctri
  */
 public class FrmAdministrarCompra extends javax.swing.JFrame {
+
     INegocio negocio;
     private List<Proveedor> listaProveedores;
-    
+
     /**
      * Creates new form FrmAdministrarCompra
+     *
      * @param proveedor
      */
     public FrmAdministrarCompra(List<Proveedor> proveedor) {
@@ -34,12 +41,10 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         despliegaDatosRecuperados(proveedor);
         despliegaDatosMaterial();
     }
-    
 
 //    public FrmAdministrarCompra() {
 //        initComponents();
 //    }
-    
     /**
      * Método que valida de manera que solo permite letras y espacio
      *
@@ -53,26 +58,26 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             evento.consume();
         }
     }
-    
+
     public void despliegaDatosRecuperados(List<Proveedor> proveedor) {
         System.out.println(proveedor);
         for (Proveedor p : proveedor) {
-            
+
             cbProovedor1.addItem(p);
         }
     }
-    
+
     public void despliegaDatosMaterial() {
-        System.out.println(material);
+       
         cbMaterial.removeAllItems();
         Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
-        List <Material> materiales = proveedor.getMateriales();
+        List<Material> materiales = proveedor.getMateriales();
         for (Material m : materiales) {
-            
+
             cbMaterial.addItem(m);
         }
     }
-    
+
     public Proveedor obtenerProveedorPorNombre(String nombreProveedor) {
         // Iterar sobre la lista de proveedores y devolver el que coincida con el nombre
         for (Proveedor proveedor : listaProveedores) {
@@ -88,7 +93,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         // Supongamos que hay un método en Proveedor para obtener los materiales asociados
         return proveedor.getMateriales();
     }
-    
+
     public void llenarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
         String material = cbMaterial.getSelectedItem().toString();
@@ -96,11 +101,45 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         String ejemplares = txtCantidad.getText();
         modelo.addRow(new Object[]{material, costo, ejemplares});
     }
-    
-    public void agregar(){
-        
+
+    public void agregar() {
+        //secretaria de prueba (falta ver como hacemos lo de secretaria xd)
+         Secretaria secretaria = new Secretaria("pendiente","48495", "Juana1233", "Juanito233", "JJ@gmial.com");
+        Compra compra = new Compra();
+        LocalDateTime fechaHoraLocal = LocalDateTime.now();
+
+        // Convertir LocalDateTime a java.util.Date
+        Date utilDate = (Date) Date.from(fechaHoraLocal.atZone(ZoneId.systemDefault()).toInstant());
+
+        // Convertir java.util.Date a java.sql.Date
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+        //seteando los valores a un objeto compra
+        compra.setFecha(sqlDate);
+        compra.setCondicion("aserequebola eto ta pendiente");
+        compra.setCosto(txtCosto.getText());
+        compra.setSecretaria(secretaria);
+        compra.setDetalleCompra(obtenerDetallesCompraDesdeTabla(tblDetalleCompra));
+        //compra.setDetalleCompra(detalleCompra);
+
+        negocio.guardarCompra(compra);
     }
-    
+
+    public List<DetalleCompra> obtenerDetallesCompraDesdeTabla(JTable tblDetalleCompra) {
+        List<DetalleCompra> detallesCompra = new ArrayList<>();
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+        
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            Material material = (Material) modelo.getValueAt(i, 0);
+            float costoUnitario = (float) modelo.getValueAt(i, 1);
+            int cantidad = (short) modelo.getValueAt(i, 2);
+            
+            DetalleCompra detalleCompra = new DetalleCompra(costoUnitario, (short) cantidad, material);
+            detallesCompra.add(detalleCompra);
+        }
+        
+        return detallesCompra;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -251,9 +290,9 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-       FrmMenuPrincipal principal = new FrmMenuPrincipal();
-       principal.setVisible(true);
-       this.dispose();
+        FrmMenuPrincipal principal = new FrmMenuPrincipal();
+        principal.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -262,9 +301,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
         char c = evt.getKeyChar();
-        
-        if((c<'0' || c>'9'))evt.consume();
-        
+
+        if ((c < '0' || c > '9')) {
+            evt.consume();
+        }
+
         if (txtCosto.getText().length() == 4) {
             evt.consume();
         }
@@ -272,9 +313,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
         char c = evt.getKeyChar();
-        
-        if((c<'0' || c>'9'))evt.consume();
-        
+
+        if ((c < '0' || c > '9')) {
+            evt.consume();
+        }
+
         if (txtCantidad.getText().length() == 4) {
             evt.consume();
         }
@@ -285,7 +328,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_cbMaterialActionPerformed
 
     private void cbProovedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProovedor1ActionPerformed
-       despliegaDatosMaterial();
+        despliegaDatosMaterial();
     }//GEN-LAST:event_cbProovedor1ActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -299,7 +342,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
         this.llenarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
-    
+
 //    /**
 //     * @param args the command line arguments
 //     */

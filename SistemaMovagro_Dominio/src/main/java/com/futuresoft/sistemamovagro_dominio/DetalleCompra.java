@@ -26,7 +26,7 @@ public class DetalleCompra implements Serializable {
     private Integer id;
     
     @Column(name = "Costo_Unitario")
-    private float costoUnitario;
+        private float costoUnitario;
     
     @Column(name = "Cantidad")
     private short cantidad;
@@ -42,6 +42,13 @@ public class DetalleCompra implements Serializable {
     public DetalleCompra() {
     }
 
+    public DetalleCompra(float costoUnitario, short cantidad, Material material) {
+        this.costoUnitario = costoUnitario;
+        this.cantidad = cantidad;
+        this.material = material;
+    }
+
+    
     public DetalleCompra(Integer id, float costoUnitario, short cantidad) {
         this.id = id;
         this.costoUnitario = costoUnitario;

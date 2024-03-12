@@ -43,7 +43,7 @@ public class ProveedorDAO implements IDatos{
         
        EntityManager em = conexion.getEM();
     try {
-        // Asumiendo que existe una relación entre Proveedor y Material llamada "materiales"
+        
         List<Material> listaMateriales = em.createQuery("SELECT m FROM Material m WHERE m.proveedor = :proveedor", Material.class)
                 .setParameter("proveedor", proveedor)
                 .getResultList();

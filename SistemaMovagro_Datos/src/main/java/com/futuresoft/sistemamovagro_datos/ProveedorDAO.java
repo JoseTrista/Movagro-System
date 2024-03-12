@@ -4,6 +4,7 @@
  */
 package com.futuresoft.sistemamovagro_datos;
 
+import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import java.util.ArrayList;
@@ -52,6 +53,11 @@ public class ProveedorDAO implements IDatos{
         return null;
     }
 
+    }
+
+    @Override
+    public Compra guardarCompra(Compra compra) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

@@ -11,6 +11,10 @@ import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,7 +22,6 @@ import java.util.List;
  */
 public class FrmAdministrarCompra extends javax.swing.JFrame {
     INegocio negocio;
-     // Definir la lista de proveedores
     private List<Proveedor> listaProveedores;
     
     /**
@@ -31,6 +34,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         despliegaDatosRecuperados(proveedor);
         despliegaDatosMaterial();
     }
+    
 
 //    public FrmAdministrarCompra() {
 //        initComponents();
@@ -83,6 +87,18 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         // Obtener la lista de materiales asociados al proveedor
         // Supongamos que hay un método en Proveedor para obtener los materiales asociados
         return proveedor.getMateriales();
+    }
+    
+    public void llenarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+        String material = cbMaterial.getSelectedItem().toString();
+        String costo = txtCosto.getText();
+        String ejemplares = txtCantidad.getText();
+        modelo.addRow(new Object[]{material, costo, ejemplares});
+    }
+    
+    public void agregar(){
+        
     }
     
     /**
@@ -157,12 +173,16 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jPanel2.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 253, 418, -1));
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 293, 418, -1));
 
         tblDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Material", "Precio", "Ejemplares"
@@ -170,7 +190,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblDetalleCompra);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 334, -1, 57));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 334, -1, 110));
 
         btnEliminar.setText("Eliminar");
         jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 339, -1, -1));
@@ -184,7 +204,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, 87, -1));
+        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, 87, -1));
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -192,10 +212,10 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnLimpiarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 93, -1));
+        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, 93, -1));
 
         btnPDF.setText("PDF");
-        jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 78, -1));
+        jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, 78, -1));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -203,7 +223,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 440, 89, -1));
+        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 89, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
         jLabel1.setText("Administrar Compra");
@@ -269,9 +289,16 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_cbProovedor1ActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        cbProovedor1.setSelectedIndex(0);
+        cbMaterial.setSelectedIndex(0);
         txtCantidad.setText("");
         txtCosto.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+        this.llenarTabla();
+    }//GEN-LAST:event_btnAgregarActionPerformed
     
 //    /**
 //     * @param args the command line arguments

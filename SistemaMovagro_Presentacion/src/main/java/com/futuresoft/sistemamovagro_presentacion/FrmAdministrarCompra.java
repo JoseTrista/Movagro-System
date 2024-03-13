@@ -10,6 +10,7 @@ import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
 import com.futuresoft.sistemamovagro_negocio.ControlCompra;
+import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
      * @param proveedor
      */
     public FrmAdministrarCompra(List<Proveedor> proveedor) {
-        negocio = new ControlCompra();
+        negocio = new FachadaNegocio();
         initComponents();
         this.listaProveedores = proveedor;
         despliegaDatosRecuperados(proveedor);
@@ -108,22 +109,20 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         LocalDate fechaLocal = LocalDate.now();
         java.sql.Date sqlDate = java.sql.Date.valueOf(fechaLocal);
 
-        //seteando los valores a un objeto compra
-        compra.setId(3);
+
         compra.setFecha(sqlDate);
         compra.setCondicion("Pendiente");
         compra.setCosto(txtCosto.getText());
         compra.setSecretaria(secretaria);
         compra.setProveedor(proveedor);
-        compra.setDetalleCompra(obtenerDetallesCompraDesdeTabla(tblDetalleCompra));
+        compra.setDetalleCompra(obtenerDetallesCompraDesdeTabla(tblDetalleCompra, compra));
 
         negocio.guardarCompra(compra);
     }
 
-    public List<DetalleCompra> obtenerDetallesCompraDesdeTabla(JTable tblDetalleCompra) {
+    public List<DetalleCompra> obtenerDetallesCompraDesdeTabla(JTable tblDetalleCompra,Compra compra) {
         List<DetalleCompra> detallesCompra = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
-        Compra compra = new Compra(3);
         for (int i = 0; i < modelo.getRowCount(); i++) {
             try {
                 String nombrematerial = modelo.getValueAt(i, 0).toString();

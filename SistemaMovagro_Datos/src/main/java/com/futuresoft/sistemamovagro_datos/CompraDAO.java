@@ -15,7 +15,7 @@ import javax.persistence.EntityManager;
  *
  * @author jctri
  */
-public class CompraDAO implements IDatos {
+public class CompraDAO {
 
     private Conexion conexion;
 
@@ -23,18 +23,6 @@ public class CompraDAO implements IDatos {
         conexion = new Conexion("com.FutureSoft_SistemaMovagro_Dominio_jar_1.0-SNAPSHOTPU");
     }
     
-    
-    @Override
-    public List<Proveedor> recuperaProveedor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Material> mostrarMaterial(Proveedor proveedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public Compra guardarCompra(Compra compra) {
         EntityManager em = conexion.getEM();
         try {
@@ -50,18 +38,18 @@ public class CompraDAO implements IDatos {
         }
         return compra; // Devolver la compra guardada
     }
-
-    @Override
-    public Secretaria  recuperaSecretaria() {
-        EntityManager em = conexion.getEM();
-        try {
-            // Suponiendo que siempre habrá al menos una Secretaria, esta consulta te devolverá la primera.
-            return em.createQuery("SELECT s FROM Secretaria s", Secretaria.class)
-                    .setMaxResults(1)
-                    .getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//
+//    @Override
+//    public Secretaria  recuperaSecretaria() {
+//        EntityManager em = conexion.getEM();
+//        try {
+//            // Suponiendo que siempre habrá al menos una Secretaria, esta consulta te devolverá la primera.
+//            return em.createQuery("SELECT s FROM Secretaria s", Secretaria.class)
+//                    .setMaxResults(1)
+//                    .getSingleResult();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 } 

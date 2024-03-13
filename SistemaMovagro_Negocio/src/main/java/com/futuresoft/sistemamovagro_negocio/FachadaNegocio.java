@@ -4,8 +4,6 @@
  */
 package com.futuresoft.sistemamovagro_negocio;
 
-import com.futuresoft.sistemamovagro_datos.FachadaDatos;
-import com.futuresoft.sistemamovagro_datos.IDatos;
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
@@ -16,19 +14,29 @@ import java.util.List;
  *
  * @author jctri
  */
-public class ControlProveedor {
-    public IDatos datos;
-
-    public ControlProveedor() {
-        this.datos = new FachadaDatos();
-    }
-
+public class FachadaNegocio implements INegocio{
+    ControlCompra com = new ControlCompra();
+    ControlProveedor prov = new ControlProveedor();
+    ControlSecretaria secretaria = new ControlSecretaria();
+           
+    @Override
     public List<Proveedor> recuperaProveedor() {
-      return datos.recuperaProveedor();
+        return prov.recuperaProveedor();
     }
 
+    @Override
     public List<Material> mostrarMaterial(Proveedor proveedor) {
-        return datos.mostrarMaterial(proveedor);
+        return prov.mostrarMaterial(proveedor);
     }
 
+    @Override
+    public Compra guardarCompra(Compra compra) {
+        return com.guardarCompra(compra);
+    }
+
+    @Override
+    public Secretaria recuperaSecretaria() {
+        return secretaria.recuperaSecretaria();
+    }
+    
 }

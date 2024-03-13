@@ -10,6 +10,7 @@ import com.futuresoft.sistemamovagro_dominio.Material;
 import static com.futuresoft.sistemamovagro_dominio.Material_.proveedor;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_negocio.ControlProveedor;
+import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
      * Creates new form FrmMenuPrincipal
      */
     public FrmMenuPrincipal() {
-        negocio = new ControlProveedor();
+        negocio = new FachadaNegocio();
         initComponents();
     }
 

@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
  *
  * @author jctri
  */
-public class ProveedorDAO implements IDatos{
+public class ProveedorDAO{
 
     private Conexion conexion;
 
@@ -25,8 +25,7 @@ public class ProveedorDAO implements IDatos{
         this.conexion = new Conexion("com.FutureSoft_SistemaMovagro_Dominio_jar_1.0-SNAPSHOTPU");
     }
     
-    
-    @Override
+
     public List<Proveedor> recuperaProveedor() {
         EntityManager em = conexion.getEM();
         try {
@@ -38,8 +37,7 @@ public class ProveedorDAO implements IDatos{
         }
     }
     
-  
-    @Override
+
     public List<Material> mostrarMaterial(Proveedor proveedor) {
         
        EntityManager em = conexion.getEM();
@@ -55,15 +53,4 @@ public class ProveedorDAO implements IDatos{
     }
 
     }
-
-    @Override
-    public Compra guardarCompra(Compra compra) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Secretaria  recuperaSecretaria() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

@@ -111,7 +111,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
 
         compra.setFecha(sqlDate);
-        compra.setCondicion("Pendiente");
+        compra.setCondicion(txtCondicion.getText());
         compra.setCosto(txtCosto.getText());
         compra.setSecretaria(secretaria);
         compra.setProveedor(proveedor);
@@ -181,6 +181,8 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbProovedor1 = new javax.swing.JComboBox<>();
+        txtCondicion = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -211,18 +213,18 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 txtCantidadKeyTyped(evt);
             }
         });
-        jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 204, 418, -1));
+        jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 410, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Costo");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 255, -1, -1));
+        jLabel5.setText("Condición");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
         txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCostoKeyTyped(evt);
             }
         });
-        jPanel2.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 253, 418, -1));
+        jPanel2.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 410, -1));
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +232,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 293, 418, -1));
+        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 418, -1));
 
         tblDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -242,13 +244,13 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblDetalleCompra);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 334, -1, 110));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, -1, 110));
 
         btnEliminar.setText("Eliminar");
-        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 339, -1, -1));
+        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         btnEditar.setText("Editar");
-        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 368, 73, -1));
+        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 73, -1));
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +258,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, 87, -1));
+        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 490, 80, -1));
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,10 +266,10 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnLimpiarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, 93, -1));
+        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 93, -1));
 
         btnPDF.setText("PDF");
-        jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 460, 78, -1));
+        jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 490, 78, -1));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +277,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, 89, -1));
+        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 490, 89, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
         jLabel1.setText("Administrar Compra");
@@ -287,6 +289,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             }
         });
         jPanel2.add(cbProovedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 102, 418, -1));
+        jPanel2.add(txtCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 410, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Costo");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -406,10 +413,12 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDetalleCompra;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCondicion;
     private javax.swing.JTextField txtCosto;
     // End of variables declaration//GEN-END:variables
 }

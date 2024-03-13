@@ -5,6 +5,7 @@
 package com.futuresoft.sistemamovagro_dominio;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class DetalleCompra implements Serializable {
     private Integer id;
     
     @Column(name = "Costo_Unitario")
-        private float costoUnitario;
+    private float costoUnitario;
     
     @Column(name = "Cantidad")
     private short cantidad;

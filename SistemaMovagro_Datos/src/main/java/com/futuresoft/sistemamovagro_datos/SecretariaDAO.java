@@ -15,40 +15,28 @@ import javax.persistence.EntityManager;
  *
  * @author jctri
  */
-public class CompraDAO implements IDatos {
+public class SecretariaDAO implements IDatos{
 
     private Conexion conexion;
 
-    public CompraDAO() {
-        conexion = new Conexion("com.FutureSoft_SistemaMovagro_Dominio_jar_1.0-SNAPSHOTPU");
+    public SecretariaDAO() {
+        this.conexion = new Conexion("com.FutureSoft_SistemaMovagro_Dominio_jar_1.0-SNAPSHOTPU");
     }
     
     
     @Override
     public List<Proveedor> recuperaProveedor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Material> mostrarMaterial(Proveedor proveedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public Compra guardarCompra(Compra compra) {
-        EntityManager em = conexion.getEM();
-        try {
-            em.getTransaction().begin(); // Iniciar la transacción
-            em.persist(compra); // Guardar la compra
-            em.getTransaction().commit(); // Comprometer la transacción
-        } catch (Exception e) {
-            e.printStackTrace();
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); // Deshacer la transacción si hay error
-            }
-            return null;
-        }
-        return compra; // Devolver la compra guardada
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -64,4 +52,5 @@ public class CompraDAO implements IDatos {
             return null;
         }
     }
-} 
+    
+}

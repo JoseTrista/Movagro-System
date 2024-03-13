@@ -41,7 +41,7 @@ public class Proveedor implements Serializable {
     @Column(name = "Nombre")
     private String nombre;
     
-    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "proveedor")
     private List<Material> materiales;
 
     @OneToMany(mappedBy = "proveedor", cascade = CascadeType.PERSIST, orphanRemoval = true)

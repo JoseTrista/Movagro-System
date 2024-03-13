@@ -7,6 +7,7 @@ package com.futuresoft.sistemamovagro_datos;
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
+import com.futuresoft.sistemamovagro_dominio.Secretaria;
 import java.util.List;
 
 /**
@@ -20,5 +21,5 @@ public interface IDatos {
     
     public Compra guardarCompra(Compra compra);
     
-    
+    public Secretaria  recuperaSecretaria();
 }

@@ -5,7 +5,7 @@
 package com.futuresoft.sistemamovagro_negocio;
 
 import com.futuresoft.sistemamovagro_datos.IDatos;
-import com.futuresoft.sistemamovagro_datos.ProveedorDAO;
+import com.futuresoft.sistemamovagro_datos.SecretariaDAO;
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
@@ -16,21 +16,23 @@ import java.util.List;
  *
  * @author jctri
  */
-public class ControlProveedor implements INegocio{
+public class ControlSecretaria implements INegocio{
+
     public IDatos datos;
 
-    public ControlProveedor() {
-        this.datos = new ProveedorDAO();
+    public ControlSecretaria() {
+       this.datos = new SecretariaDAO();
     }
-
+    
+    
     @Override
     public List<Proveedor> recuperaProveedor() {
-      return datos.recuperaProveedor();
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Material> mostrarMaterial(Proveedor proveedor) {
-        return datos.mostrarMaterial(proveedor);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -39,7 +41,8 @@ public class ControlProveedor implements INegocio{
     }
 
     @Override
-    public Secretaria  recuperaSecretaria() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Secretaria recuperaSecretaria() {
+        return datos.recuperaSecretaria();
     }
+    
 }

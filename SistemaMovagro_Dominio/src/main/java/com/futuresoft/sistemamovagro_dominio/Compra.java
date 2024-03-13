@@ -43,10 +43,10 @@ public class Compra implements Serializable {
     @Column(name = "Costo_total")
     private String costo;
         
-    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     private List<DetalleCompra> detalleCompra;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
     
@@ -55,6 +55,10 @@ public class Compra implements Serializable {
     private Secretaria secretaria;
     
     public Compra() {
+    }
+
+    public Compra(Integer id) {
+        this.id = id;
     }
 
     public Compra(Integer id, Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
@@ -132,8 +136,11 @@ public class Compra implements Serializable {
         return detalleCompra;
     }
 
-    public void setDetalleCompra(List<DetalleCompra> detalleCompra) {
-        this.detalleCompra = detalleCompra;
+    public void setDetalleCompra(List<DetalleCompra> detallesCompra) {
+        this.detalleCompra = detallesCompra;
+//        for (DetalleCompra detalle : detallesCompra) {
+//            detalle.setCompra(this);
+//        }
     }
     
     public Proveedor getProveedor() {

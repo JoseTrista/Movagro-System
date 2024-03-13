@@ -40,7 +40,7 @@ public class Material implements Serializable {
     @Column(name = "Unidad_Medida")
     private String unidadMedida;
     
-    @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "material")
     private List<DetalleCompra> detallesCompra;
     
     @ManyToOne

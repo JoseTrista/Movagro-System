@@ -9,17 +9,13 @@ import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
+import com.futuresoft.sistemamovagro_negocio.ControlCompra;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
-import java.awt.event.ItemEvent;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 /**
  *
@@ -36,6 +32,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
      * @param proveedor
      */
     public FrmAdministrarCompra(List<Proveedor> proveedor) {
+        negocio = new ControlCompra();
         initComponents();
         this.listaProveedores = proveedor;
         despliegaDatosRecuperados(proveedor);
@@ -104,23 +101,21 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     public void agregar() {
         //secretaria de prueba (falta ver como hacemos lo de secretaria xd)
-         Secretaria secretaria = new Secretaria("pendiente","48495", "Juana1233", "Juanito233", "JJ@gmial.com");
+        Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
+        Secretaria secretaria = negocio.recuperaSecretaria();
         Compra compra = new Compra();
-        LocalDateTime fechaHoraLocal = LocalDateTime.now();
-
-        // Convertir LocalDateTime a java.util.Date
-        Date utilDate = (Date) Date.from(fechaHoraLocal.atZone(ZoneId.systemDefault()).toInstant());
-
-        // Convertir java.util.Date a java.sql.Date
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        
+        LocalDate fechaLocal = LocalDate.now();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(fechaLocal);
 
         //seteando los valores a un objeto compra
+        compra.setId(3);
         compra.setFecha(sqlDate);
-        compra.setCondicion("aserequebola eto ta pendiente");
+        compra.setCondicion("Pendiente");
         compra.setCosto(txtCosto.getText());
         compra.setSecretaria(secretaria);
+        compra.setProveedor(proveedor);
         compra.setDetalleCompra(obtenerDetallesCompraDesdeTabla(tblDetalleCompra));
-        //compra.setDetalleCompra(detalleCompra);
 
         negocio.guardarCompra(compra);
     }
@@ -128,17 +123,36 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     public List<DetalleCompra> obtenerDetallesCompraDesdeTabla(JTable tblDetalleCompra) {
         List<DetalleCompra> detallesCompra = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
-        
+        Compra compra = new Compra(3);
         for (int i = 0; i < modelo.getRowCount(); i++) {
-            Material material = (Material) modelo.getValueAt(i, 0);
-            float costoUnitario = (float) modelo.getValueAt(i, 1);
-            int cantidad = (short) modelo.getValueAt(i, 2);
-            
-            DetalleCompra detalleCompra = new DetalleCompra(costoUnitario, (short) cantidad, material);
-            detallesCompra.add(detalleCompra);
+            try {
+                String nombrematerial = modelo.getValueAt(i, 0).toString();
+                float costoUnitario = Float.parseFloat(modelo.getValueAt(i, 1).toString());
+                int cantidad = Integer.parseInt(modelo.getValueAt(i, 2).toString());
+
+                Material material = buscarMaterialPorNombre(nombrematerial);
+
+                DetalleCompra detalleCompra = new DetalleCompra(costoUnitario, (short) cantidad, material);
+                detalleCompra.setCompra(compra);
+                detallesCompra.add(detalleCompra);
+            } catch (NumberFormatException e) {
+                
+                System.out.println("Error al convertir los datos: " + e.getMessage());
+            }
         }
         
         return detallesCompra;
+    }
+    
+    private Material buscarMaterialPorNombre(String nombre) {
+        Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
+        List <Material> listaMateriales = proveedor.getMateriales();
+        for (Material material : listaMateriales) { 
+            if (material.getNombre().equals(nombre)) {
+                return material;
+            }
+        }
+        return null; 
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -296,7 +310,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        agregar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped

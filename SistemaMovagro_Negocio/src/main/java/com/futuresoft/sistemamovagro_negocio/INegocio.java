@@ -7,6 +7,7 @@ package com.futuresoft.sistemamovagro_negocio;
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
+import com.futuresoft.sistemamovagro_dominio.Secretaria;
 import java.util.List;
 
 /**
@@ -19,4 +20,6 @@ public interface INegocio {
     public List<Material> mostrarMaterial(Proveedor proveedor);
     
     public Compra guardarCompra(Compra compra);
+    
+    public Secretaria  recuperaSecretaria();
 }

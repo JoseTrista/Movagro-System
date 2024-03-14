@@ -21,5 +21,9 @@ public interface IDatos {
     
     public Compra guardarCompra(Compra compra);
     
+    public Compra editarCompra(Compra compra);
+    
+    public Compra eliminarCompra(int compraid);
+    
     public Secretaria  recuperaSecretaria();
 }

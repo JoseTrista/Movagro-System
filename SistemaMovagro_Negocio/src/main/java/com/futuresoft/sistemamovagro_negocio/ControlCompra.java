@@ -28,5 +28,13 @@ public class ControlCompra {
     public Secretaria  recuperaSecretaria() {
        return datos.recuperaSecretaria();
     }
+    
+    public Compra editarCompra(Compra compra){
+        return datos.editarCompra(compra);
+    }
+    
+    public Compra eliminarCompra(int compraid){
+        return datos.eliminarCompra(compraid);
+    }
 
 }

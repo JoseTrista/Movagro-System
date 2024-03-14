@@ -5,10 +5,6 @@
 package com.futuresoft.sistemamovagro_datos;
 
 import com.futuresoft.sistemamovagro_dominio.Compra;
-import com.futuresoft.sistemamovagro_dominio.Material;
-import com.futuresoft.sistemamovagro_dominio.Proveedor;
-import com.futuresoft.sistemamovagro_dominio.Secretaria;
-import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -26,30 +22,54 @@ public class CompraDAO {
     public Compra guardarCompra(Compra compra) {
         EntityManager em = conexion.getEM();
         try {
-            em.getTransaction().begin(); // Iniciar la transacción
-            em.persist(compra); // Guardar la compra
-            em.getTransaction().commit(); // Comprometer la transacción
+            em.getTransaction().begin(); 
+            em.persist(compra); 
+            em.getTransaction().commit(); 
         } catch (Exception e) {
             e.printStackTrace();
             if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback(); // Deshacer la transacción si hay error
+                em.getTransaction().rollback(); 
             }
             return null;
         }
-        return compra; // Devolver la compra guardada
+        return compra; 
     }
-//
-//    @Override
-//    public Secretaria  recuperaSecretaria() {
-//        EntityManager em = conexion.getEM();
-//        try {
-//            // Suponiendo que siempre habrá al menos una Secretaria, esta consulta te devolverá la primera.
-//            return em.createQuery("SELECT s FROM Secretaria s", Secretaria.class)
-//                    .setMaxResults(1)
-//                    .getSingleResult();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    
+    public Compra editarCompra(Compra compra) {
+        EntityManager em = conexion.getEM();
+        Compra compraEditada = null;
+        try {
+            em.getTransaction().begin();
+            compraEditada = em.merge(compra); 
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            return null; 
+        }
+        return compraEditada;
+    }
+
+    public Compra eliminarCompra(int compraid) {
+        EntityManager em = conexion.getEM();
+        Compra compra = null;
+        try {
+            em.getTransaction().begin();
+            compra = em.find(Compra.class, compraid); 
+            if (compra != null) {
+//                compra.setEstado("Cancelada");
+                em.merge(compra); 
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            return null; 
+        }
+        return compra; 
+    }
 } 

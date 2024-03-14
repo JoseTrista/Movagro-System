@@ -38,5 +38,15 @@ public class FachadaNegocio implements INegocio{
     public Secretaria recuperaSecretaria() {
         return secretaria.recuperaSecretaria();
     }
+
+    @Override
+    public Compra editarCompra(Compra compra) {
+       return com.editarCompra(compra);
+    }
+
+    @Override
+    public Compra eliminarCompra(int compraid) {
+        return com.eliminarCompra(compraid);
+    }
     
 }

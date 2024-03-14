@@ -26,7 +26,7 @@ public class FachadaDatos implements IDatos{
 
     @Override
     public List<Material> mostrarMaterial(Proveedor proveedor) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return prov.mostrarMaterial(proveedor);
     }
 
     @Override
@@ -38,5 +38,16 @@ public class FachadaDatos implements IDatos{
     public Secretaria recuperaSecretaria() {
        return secretaria.recuperaSecretaria();
     }
+
+    @Override
+    public Compra editarCompra(Compra compra) {
+       return com.editarCompra(compra);
+    }
+
+    @Override
+    public Compra eliminarCompra(int compraid) {
+        return com.eliminarCompra(compraid);
+    }
+    
     
 }

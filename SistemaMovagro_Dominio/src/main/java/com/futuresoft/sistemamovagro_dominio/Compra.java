@@ -37,11 +37,14 @@ public class Compra implements Serializable {
     @Column(name = "Fecha")
     private Date fecha;
     
-    @Column(name = "Condicion")
-    private String condicion;
+    @Column(name = "Unidad_Medida")
+    private String unidad_medida;
     
     @Column(name = "Costo_total")
     private String costo;
+    
+    @Column(name = "Estado")
+    private String estado;
         
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL)
     private List<DetalleCompra> detalleCompra;
@@ -64,7 +67,7 @@ public class Compra implements Serializable {
     public Compra(Integer id, Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.id = id;
         this.fecha = fecha;
-        this.condicion = condicion;
+        this.unidad_medida = condicion;
         this.costo = costo;
         this.detalleCompra = detalleCompra;
         this.proveedor = proveedor;
@@ -72,7 +75,7 @@ public class Compra implements Serializable {
 
     public Compra(Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.fecha = fecha;
-        this.condicion = condicion;
+        this.unidad_medida = condicion;
         this.costo = costo;
         this.detalleCompra = detalleCompra;
         this.proveedor = proveedor;
@@ -80,25 +83,22 @@ public class Compra implements Serializable {
 
     public Compra(Date fecha, String condicion, String costo, Proveedor proveedor, Secretaria secretaria) {
         this.fecha = fecha;
-        this.condicion = condicion;
+        this.unidad_medida = condicion;
         this.costo = costo;
         this.proveedor = proveedor;
         this.secretaria = secretaria;
     }
 
-    
-
-    public Compra(Integer id, Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor, Secretaria secretaria) {
+    public Compra(Integer id, Date fecha, String unidad_medida, String costo, String estado, List<DetalleCompra> detalleCompra, Proveedor proveedor, Secretaria secretaria) {
         this.id = id;
         this.fecha = fecha;
-        this.condicion = condicion;
+        this.unidad_medida = unidad_medida;
         this.costo = costo;
+        this.estado = estado;
         this.detalleCompra = detalleCompra;
         this.proveedor = proveedor;
         this.secretaria = secretaria;
     }
-
-    
     
     public Integer getId() {
         return id;
@@ -116,12 +116,12 @@ public class Compra implements Serializable {
         this.fecha = fecha;
     }
 
-    public String getCondicion() {
-        return condicion;
+    public String getUnidad_medida() {
+        return unidad_medida;
     }
 
-    public void setCondicion(String condicion) {
-        this.condicion = condicion;
+    public void setUnidad_medida(String unidad_medida) {
+        this.unidad_medida = unidad_medida;
     }
 
     public String getCosto() {
@@ -138,9 +138,6 @@ public class Compra implements Serializable {
 
     public void setDetalleCompra(List<DetalleCompra> detallesCompra) {
         this.detalleCompra = detallesCompra;
-//        for (DetalleCompra detalle : detallesCompra) {
-//            detalle.setCompra(this);
-//        }
     }
     
     public Proveedor getProveedor() {
@@ -157,6 +154,14 @@ public class Compra implements Serializable {
 
     public void setSecretaria(Secretaria secretaria) {
         this.secretaria = secretaria;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
     @Override

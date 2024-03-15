@@ -4,18 +4,11 @@
  */
 package com.futuresoft.sistemamovagro_presentacion;
 
-import com.futuresoft.sistemamovagro_datos.IDatos;
-import com.futuresoft.sistemamovagro_datos.ProveedorDAO;
-import com.futuresoft.sistemamovagro_dominio.Material;
-import static com.futuresoft.sistemamovagro_dominio.Material_.proveedor;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
-import com.futuresoft.sistemamovagro_negocio.ControlProveedor;
 import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -68,7 +61,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 240, -1));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 240, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
         jLabel1.setText("MENU PRINCIPAL");
@@ -91,7 +84,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 240, -1));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 240, -1));
 
         btnEliminar.setBackground(new java.awt.Color(0, 153, 204));
         btnEliminar.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
@@ -110,7 +103,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, -1));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 240, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,6 +117,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseEntered
@@ -197,6 +191,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FrmMenuPrincipal().setVisible(true);
             }

@@ -9,12 +9,12 @@ import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
-import com.futuresoft.sistemamovagro_negocio.ControlCompra;
 import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,7 +26,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     INegocio negocio;
     private List<Proveedor> listaProveedores;
-
     /**
      * Creates new form FrmAdministrarCompra
      *
@@ -38,11 +37,9 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         this.listaProveedores = proveedor;
         despliegaDatosRecuperados(proveedor);
         despliegaDatosMaterial();
+        cbProovedor1.setEnabled(true);
     }
 
-//    public FrmAdministrarCompra() {
-//        initComponents();
-//    }
     /**
      * Método que valida de manera que solo permite letras y espacio
      *
@@ -66,7 +63,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }
 
     public void despliegaDatosMaterial() {
-       
         cbMaterial.removeAllItems();
         Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
         List<Material> materiales = proveedor.getMateriales();
@@ -77,31 +73,31 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }
 
     public Proveedor obtenerProveedorPorNombre(String nombreProveedor) {
-        // Iterar sobre la lista de proveedores y devolver el que coincida con el nombre
         for (Proveedor proveedor : listaProveedores) {
             if (proveedor.getNombre().equals(nombreProveedor)) {
                 return proveedor;
             }
         }
-        return null; // Si no se encuentra el proveedor con el nombre dado
-    }
-
-    public List<Material> obtenerMaterialesPorProveedor(Proveedor proveedor) {
-        // Obtener la lista de materiales asociados al proveedor
-        // Supongamos que hay un método en Proveedor para obtener los materiales asociados
-        return proveedor.getMateriales();
+        return null; 
     }
 
     public void llenarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+        String proveedor = cbProovedor1.getSelectedItem().toString();
         String material = cbMaterial.getSelectedItem().toString();
         String costo = txtCosto.getText();
         String ejemplares = txtCantidad.getText();
-        modelo.addRow(new Object[]{material, costo, ejemplares});
+        String unidadMedida = txtUnidadMedida.getText();
+        modelo.addRow(new Object[]{material, proveedor, costo, ejemplares, unidadMedida});
     }
 
+    public void limpiarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+
+        modelo.setRowCount(0);
+    }
+    
     public void agregar() {
-        //secretaria de prueba (falta ver como hacemos lo de secretaria xd)
         Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
         Secretaria secretaria = negocio.recuperaSecretaria();
         Compra compra = new Compra();
@@ -111,10 +107,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
 
         compra.setFecha(sqlDate);
-        compra.setCondicion(txtCondicion.getText());
+        compra.setUnidad_medida(txtUnidadMedida.getText());
         compra.setCosto(txtCosto.getText());
         compra.setSecretaria(secretaria);
         compra.setProveedor(proveedor);
+        compra.setEstado("Activa");
         compra.setDetalleCompra(obtenerDetallesCompraDesdeTabla(tblDetalleCompra, compra));
 
         negocio.guardarCompra(compra);
@@ -126,12 +123,13 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             try {
                 String nombrematerial = modelo.getValueAt(i, 0).toString();
-                float costoUnitario = Float.parseFloat(modelo.getValueAt(i, 1).toString());
-                int cantidad = Integer.parseInt(modelo.getValueAt(i, 2).toString());
+                float costoUnitario = Float.parseFloat(modelo.getValueAt(i,2 ).toString());
+                int cantidad = Integer.parseInt(modelo.getValueAt(i, 3).toString());
+                String unidadMedida = modelo.getValueAt(i, 4).toString();
 
                 Material material = buscarMaterialPorNombre(nombrematerial);
 
-                DetalleCompra detalleCompra = new DetalleCompra(costoUnitario, (short) cantidad, material);
+                DetalleCompra detalleCompra = new DetalleCompra(costoUnitario, (short) cantidad, unidadMedida, material);
                 detalleCompra.setCompra(compra);
                 detallesCompra.add(detalleCompra);
             } catch (NumberFormatException e) {
@@ -143,6 +141,39 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         return detallesCompra;
     }
     
+    public void eliminarFilaSeleccionada() {
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+        int filaSeleccionada = tblDetalleCompra.getSelectedRow();
+
+        // Verifica si hay una fila seleccionada
+        if (filaSeleccionada >= 0) {
+            // Elimina la fila seleccionada
+            modelo.removeRow(filaSeleccionada);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
+        }
+    }
+    
+    public void editarFilaSeleccionada() {
+        int filaSeleccionada = tblDetalleCompra.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            // Obtén los valores actuales de la fila seleccionada para editarlos
+            DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+            String material = modelo.getValueAt(filaSeleccionada, 0).toString();
+            // Repite para otras columnas según necesites
+
+            // Muestra un diálogo para editar. Este es solo un ejemplo simple.
+            String nuevoMaterial = JOptionPane.showInputDialog(null, "Editar Material:", material);
+            // Repite para otras columnas según necesites
+
+            // Actualiza la tabla con los nuevos valores
+            modelo.setValueAt(nuevoMaterial, filaSeleccionada, 0);
+            // Repite para otras columnas según necesites
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para editar.");
+        }
+    }
+
     private Material buscarMaterialPorNombre(String nombre) {
         Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
         List <Material> listaMateriales = proveedor.getMateriales();
@@ -168,7 +199,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblUnidadMedida = new javax.swing.JLabel();
         txtCosto = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -181,7 +212,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbProovedor1 = new javax.swing.JComboBox<>();
-        txtCondicion = new javax.swing.JTextField();
+        txtUnidadMedida = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -194,37 +225,37 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 cbMaterialActionPerformed(evt);
             }
         });
-        jPanel2.add(cbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 410, -1));
+        jPanel2.add(cbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 410, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Proveedor");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 104, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText(" Material");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, 20));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Cantidad");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 206, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
 
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
             }
         });
-        jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 410, -1));
+        jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 410, -1));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Condición");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+        lblUnidadMedida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblUnidadMedida.setText("Unidad de Medida");
+        jPanel2.add(lblUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
         txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCostoKeyTyped(evt);
             }
         });
-        jPanel2.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 410, -1));
+        jPanel2.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 410, -1));
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -232,24 +263,42 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 418, -1));
+        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 418, -1));
 
         tblDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Material", "Precio", "Ejemplares"
+                "Material", "Proveedor", "Precio", "Ejemplares", "Unidad_de_Medida"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblDetalleCompra);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, -1, 110));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 600, 110));
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 73, -1));
 
         btnVolver.setText("Volver");
@@ -281,32 +330,33 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
         jLabel1.setText("Administrar Compra");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         cbProovedor1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbProovedor1ActionPerformed(evt);
             }
         });
-        jPanel2.add(cbProovedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 102, 418, -1));
-        jPanel2.add(txtCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 410, -1));
+        jPanel2.add(cbProovedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 418, -1));
+        jPanel2.add(txtUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 410, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Costo");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -316,7 +366,16 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        agregar();
+         try {
+            if (tblDetalleCompra.getModel().getRowCount() > 0) {
+                agregar();
+                JOptionPane.showMessageDialog(null, "Compra Guardada");
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay detalles de compra para guardar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar la compra: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
@@ -349,54 +408,32 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     private void cbProovedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProovedor1ActionPerformed
         despliegaDatosMaterial();
+        cbProovedor1.setEnabled(false);
     }//GEN-LAST:event_cbProovedor1ActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         cbProovedor1.setSelectedIndex(0);
+        cbProovedor1.setEnabled(true);
         cbMaterial.setSelectedIndex(0);
         txtCantidad.setText("");
         txtCosto.setText("");
+        txtUnidadMedida.setText("");
+        limpiarTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
         this.llenarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(FrmAdministrarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(FrmAdministrarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(FrmAdministrarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(FrmAdministrarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new FrmAdministrarCompra().setVisible(true);
-//            }
-//        });
-//    }
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        eliminarFilaSeleccionada();
+        btnLimpiarActionPerformed(evt);
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        editarFilaSeleccionada();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -412,13 +449,13 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblUnidadMedida;
     private javax.swing.JTable tblDetalleCompra;
     private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCondicion;
     private javax.swing.JTextField txtCosto;
+    private javax.swing.JTextField txtUnidadMedida;
     // End of variables declaration//GEN-END:variables
 }

@@ -32,6 +32,9 @@ public class DetalleCompra implements Serializable {
     @Column(name = "Cantidad")
     private short cantidad;
     
+    @Column(name = "Unidad_Medida")
+    private String unidadMedida;
+    
     @ManyToOne
     @JoinColumn(name = "compra_id", nullable = false)
     private Compra compra;
@@ -43,12 +46,12 @@ public class DetalleCompra implements Serializable {
     public DetalleCompra() {
     }
 
-    public DetalleCompra(float costoUnitario, short cantidad, Material material) {
+    public DetalleCompra(float costoUnitario, short cantidad, String unidadMedida, Material material) {
         this.costoUnitario = costoUnitario;
         this.cantidad = cantidad;
+        this.unidadMedida = unidadMedida;
         this.material = material;
     }
-
     
     public DetalleCompra(Integer id, float costoUnitario, short cantidad) {
         this.id = id;
@@ -76,9 +79,15 @@ public class DetalleCompra implements Serializable {
     public void setMaterial(Material material) {
         this.material = material;
     }
-    
-    
 
+    public String getUnidadMedida() {
+        return unidadMedida;
+    }
+
+    public void setUnidadMedida(String unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+    
     public Integer getId() {
         return id;
     }

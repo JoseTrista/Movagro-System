@@ -48,6 +48,11 @@ public class FachadaDatos implements IDatos{
     public Compra eliminarCompra(int compraid) {
         return com.eliminarCompra(compraid);
     }
+
+    @Override
+    public List<Compra> recuperarCompras() {
+      return com.obtenerComprasActivas();
+    }
     
     
 }

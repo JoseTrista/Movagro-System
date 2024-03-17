@@ -6,6 +6,7 @@ package com.futuresoft.sistemamovagro_datos;
 
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  *
@@ -59,7 +60,7 @@ public class CompraDAO {
             em.getTransaction().begin();
             compra = em.find(Compra.class, compraid); 
             if (compra != null) {
-//                compra.setEstado("Cancelada");
+                compra.setEstado("Cancelada");
                 em.merge(compra); 
             }
             em.getTransaction().commit();
@@ -71,5 +72,18 @@ public class CompraDAO {
             return null; 
         }
         return compra; 
+    }
+    
+    public List<Compra> obtenerComprasActivas() {
+        EntityManager em = conexion.getEM();
+        try {
+            List<Compra> comprasActivas = em.createQuery("SELECT c FROM Compra c WHERE c.estado = :estado", Compra.class)
+                    .setParameter("estado", "Activa")
+                    .getResultList();
+            return comprasActivas;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 } 

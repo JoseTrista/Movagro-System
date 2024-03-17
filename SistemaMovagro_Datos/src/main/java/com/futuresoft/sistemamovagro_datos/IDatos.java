@@ -19,6 +19,8 @@ public interface IDatos {
     
     public List<Material> mostrarMaterial(Proveedor proveedor);
     
+    public List<Compra> recuperarCompras();
+    
     public Compra guardarCompra(Compra compra);
     
     public Compra editarCompra(Compra compra);

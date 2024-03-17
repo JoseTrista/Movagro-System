@@ -4,6 +4,7 @@
  */
 package com.futuresoft.sistemamovagro_presentacion;
 
+import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
@@ -159,7 +160,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarMouseExited
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+       List<Compra> listaC=negocio.recuperaCompras();
+       FrmEliminarCompra frmEliminar = new  FrmEliminarCompra(listaC);
+       frmEliminar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

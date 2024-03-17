@@ -26,6 +26,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     INegocio negocio;
     private List<Proveedor> listaProveedores;
+
     /**
      * Creates new form FrmAdministrarCompra
      *
@@ -78,7 +79,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 return proveedor;
             }
         }
-        return null; 
+        return null;
     }
 
     public void llenarTabla() {
@@ -96,34 +97,40 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
         modelo.setRowCount(0);
     }
-    
+
     public void agregar() {
         Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
         Secretaria secretaria = negocio.recuperaSecretaria();
         Compra compra = new Compra();
-        
+
         LocalDate fechaLocal = LocalDate.now();
         java.sql.Date sqlDate = java.sql.Date.valueOf(fechaLocal);
 
-
         compra.setFecha(sqlDate);
         compra.setUnidad_medida(txtUnidadMedida.getText());
-        compra.setCosto(txtCosto.getText());
         compra.setSecretaria(secretaria);
         compra.setProveedor(proveedor);
         compra.setEstado("Activa");
-        compra.setDetalleCompra(obtenerDetallesCompraDesdeTabla(tblDetalleCompra, compra));
+        List<DetalleCompra> detallesCompra = obtenerDetallesCompraDesdeTabla(tblDetalleCompra, compra);
+        compra.setDetalleCompra(detallesCompra);
+
+        // Calcular el costo total de la compra
+        float costoTotal = 0.0f;
+        for (DetalleCompra detalle : detallesCompra) {
+            costoTotal += detalle.getCostoUnitario() * detalle.getCantidad();
+        }
+        compra.setCosto(costoTotal);
 
         negocio.guardarCompra(compra);
     }
 
-    public List<DetalleCompra> obtenerDetallesCompraDesdeTabla(JTable tblDetalleCompra,Compra compra) {
+    public List<DetalleCompra> obtenerDetallesCompraDesdeTabla(JTable tblDetalleCompra, Compra compra) {
         List<DetalleCompra> detallesCompra = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
         for (int i = 0; i < modelo.getRowCount(); i++) {
             try {
                 String nombrematerial = modelo.getValueAt(i, 0).toString();
-                float costoUnitario = Float.parseFloat(modelo.getValueAt(i,2 ).toString());
+                float costoUnitario = Float.parseFloat(modelo.getValueAt(i, 2).toString());
                 int cantidad = Integer.parseInt(modelo.getValueAt(i, 3).toString());
                 String unidadMedida = modelo.getValueAt(i, 4).toString();
 
@@ -133,14 +140,14 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 detalleCompra.setCompra(compra);
                 detallesCompra.add(detalleCompra);
             } catch (NumberFormatException e) {
-                
+
                 System.out.println("Error al convertir los datos: " + e.getMessage());
             }
         }
-        
+
         return detallesCompra;
     }
-    
+
     public void eliminarFilaSeleccionada() {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
         int filaSeleccionada = tblDetalleCompra.getSelectedRow();
@@ -153,7 +160,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
         }
     }
-    
+
     public void editarFilaSeleccionada() {
         int filaSeleccionada = tblDetalleCompra.getSelectedRow();
         if (filaSeleccionada >= 0) {
@@ -176,14 +183,15 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     private Material buscarMaterialPorNombre(String nombre) {
         Proveedor proveedor = (Proveedor) cbProovedor1.getSelectedItem();
-        List <Material> listaMateriales = proveedor.getMateriales();
-        for (Material material : listaMateriales) { 
+        List<Material> listaMateriales = proveedor.getMateriales();
+        for (Material material : listaMateriales) {
             if (material.getNombre().equals(nombre)) {
                 return material;
             }
         }
-        return null; 
+        return null;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -366,7 +374,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-         try {
+        try {
             if (tblDetalleCompra.getModel().getRowCount() > 0) {
                 agregar();
                 JOptionPane.showMessageDialog(null, "Compra Guardada");
@@ -422,7 +430,13 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        this.llenarTabla();
+
+        if (txtCantidad.getText().isEmpty() || txtCosto.getText().isEmpty() || txtUnidadMedida.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Favor de llenar todos los campos");
+        } else {
+            this.llenarTabla();
+        }
+
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed

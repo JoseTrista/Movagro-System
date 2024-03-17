@@ -8,7 +8,7 @@ import com.futuresoft.sistemamovagro_datos.FachadaDatos;
 import com.futuresoft.sistemamovagro_datos.IDatos;
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
-
+import java.util.List;
 /**
  *
  * @author jctri
@@ -37,4 +37,7 @@ public class ControlCompra {
         return datos.eliminarCompra(compraid);
     }
 
+    public List<Compra> recuperaCompras(){
+        return datos.recuperarCompras();
+    }
 }

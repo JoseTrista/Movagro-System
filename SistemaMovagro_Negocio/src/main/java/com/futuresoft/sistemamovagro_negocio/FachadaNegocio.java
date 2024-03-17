@@ -48,5 +48,10 @@ public class FachadaNegocio implements INegocio{
     public Compra eliminarCompra(int compraid) {
         return com.eliminarCompra(compraid);
     }
+
+    @Override
+    public List<Compra> recuperaCompras() {
+      return com.recuperaCompras();
+    }
     
 }

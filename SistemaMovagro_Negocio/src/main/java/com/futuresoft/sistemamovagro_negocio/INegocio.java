@@ -19,6 +19,8 @@ public interface INegocio {
     
     public List<Material> mostrarMaterial(Proveedor proveedor);
     
+    public List<Compra> recuperaCompras();
+    
     public Compra guardarCompra(Compra compra);
     
     public Compra editarCompra(Compra compra);
@@ -26,4 +28,6 @@ public interface INegocio {
     public Compra eliminarCompra(int compraid);
     
     public Secretaria  recuperaSecretaria();
+    
+    
 }

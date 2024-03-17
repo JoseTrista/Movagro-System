@@ -41,7 +41,7 @@ public class Compra implements Serializable {
     private String unidad_medida;
     
     @Column(name = "Costo_total")
-    private String costo;
+    private float costo;
     
     @Column(name = "Estado")
     private String estado;
@@ -64,7 +64,7 @@ public class Compra implements Serializable {
         this.id = id;
     }
 
-    public Compra(Integer id, Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
+    public Compra(Integer id, Date fecha, String condicion,float costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.id = id;
         this.fecha = fecha;
         this.unidad_medida = condicion;
@@ -73,7 +73,7 @@ public class Compra implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public Compra(Date fecha, String condicion, String costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
+    public Compra(Date fecha, String condicion, float costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.fecha = fecha;
         this.unidad_medida = condicion;
         this.costo = costo;
@@ -81,7 +81,7 @@ public class Compra implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public Compra(Date fecha, String condicion, String costo, Proveedor proveedor, Secretaria secretaria) {
+    public Compra(Date fecha, String condicion, float costo, Proveedor proveedor, Secretaria secretaria) {
         this.fecha = fecha;
         this.unidad_medida = condicion;
         this.costo = costo;
@@ -89,7 +89,7 @@ public class Compra implements Serializable {
         this.secretaria = secretaria;
     }
 
-    public Compra(Integer id, Date fecha, String unidad_medida, String costo, String estado, List<DetalleCompra> detalleCompra, Proveedor proveedor, Secretaria secretaria) {
+    public Compra(Integer id, Date fecha, String unidad_medida,float costo, String estado, List<DetalleCompra> detalleCompra, Proveedor proveedor, Secretaria secretaria) {
         this.id = id;
         this.fecha = fecha;
         this.unidad_medida = unidad_medida;
@@ -124,11 +124,11 @@ public class Compra implements Serializable {
         this.unidad_medida = unidad_medida;
     }
 
-    public String getCosto() {
+    public float getCosto() {
         return costo;
     }
 
-    public void setCosto(String costo) {
+    public void setCosto(float costo) {
         this.costo = costo;
     }
 

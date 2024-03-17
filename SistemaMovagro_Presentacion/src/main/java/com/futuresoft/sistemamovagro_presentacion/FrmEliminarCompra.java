@@ -26,44 +26,48 @@ public class FrmEliminarCompra extends javax.swing.JFrame {
         initComponents();
         this.listaCompra = compra;
         mostrarComprasEnTabla(listaCompra);
+        setLocationRelativeTo(null);
     }
 
     public void mostrarComprasEnTabla(List<Compra> compras) {
         DefaultTableModel modelo = (DefaultTableModel) tblCompra.getModel();
-        modelo.setRowCount(0); // Limpiar la tabla antes de agregar nuevos datos
+        modelo.setRowCount(0); 
 
         for (Compra compra : compras) {
-            Object[] fila = new Object[5]; // Suponiendo que tu tabla tiene 5 columnas
+            Object[] fila = new Object[5]; 
 
-            fila[0] = compra.getId(); // Id de la compra
-            fila[1] = compra.getCosto(); // Costo total de la compra
-            fila[2] = compra.getEstado(); // Estado de la compra
-            fila[3] = compra.getFecha(); // Fecha de la compra
-            fila[4] = compra.getProveedor().getNombre(); // Nombre del proveedor
+            fila[0] = compra.getId(); 
+            fila[1] = compra.getCosto(); 
+            fila[2] = compra.getEstado();
+            fila[3] = compra.getFecha(); 
+            fila[4] = compra.getProveedor().getNombre();
 
-            modelo.addRow(fila); // Agregar la fila al modelo de la tabla
+            modelo.addRow(fila);
         }
     }
 
-      public void eliminarFilaSeleccionada() {
+    public void eliminarFilaSeleccionada() {
         DefaultTableModel modelo = (DefaultTableModel) tblCompra.getModel();
         int filaSeleccionada = tblCompra.getSelectedRow();
 
-        // Verifica si hay una fila seleccionada
         if (filaSeleccionada >= 0) {
-            // Obtiene el ID de la compra seleccionada
-            int idCompra = (int) modelo.getValueAt(filaSeleccionada, 0);
-            
-            // Elimina la compra usando el ID obtenido
-            negocio.eliminarCompra(idCompra);
-            
-            // Remueve la fila seleccionada del modelo de la tabla
-            modelo.removeRow(filaSeleccionada);
+
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que desea eliminar la compra?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+
+                int idCompra = (int) modelo.getValueAt(filaSeleccionada, 0);
+
+                negocio.eliminarCompra(idCompra);
+
+                modelo.removeRow(filaSeleccionada);
+                JOptionPane.showMessageDialog(null, "La compra ha sido eliminada.");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
         }
     }
-      
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,6 +80,7 @@ public class FrmEliminarCompra extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -166,13 +171,13 @@ public class FrmEliminarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-       FrmMenuPrincipal principal = new FrmMenuPrincipal();
+        FrmMenuPrincipal principal = new FrmMenuPrincipal();
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-     eliminarFilaSeleccionada();
+        eliminarFilaSeleccionada();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**

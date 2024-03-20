@@ -5,6 +5,7 @@
 package com.futuresoft.sistemamovagro_datos;
 
 import com.futuresoft.sistemamovagro_dominio.Compra;
+import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
@@ -52,6 +53,11 @@ public class FachadaDatos implements IDatos{
     @Override
     public List<Compra> recuperarCompras() {
       return com.obtenerComprasActivas();
+    }
+
+    @Override
+    public List<DetalleCompra> recuperaDetalleCompra(int compraId) {
+        return com.recuperarDetallesPorCompraId(compraId);
     }
     
     

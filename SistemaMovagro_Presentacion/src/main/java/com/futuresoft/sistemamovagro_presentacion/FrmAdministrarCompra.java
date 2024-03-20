@@ -107,7 +107,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         java.sql.Date sqlDate = java.sql.Date.valueOf(fechaLocal);
 
         compra.setFecha(sqlDate);
-        compra.setUnidad_medida(txtUnidadMedida.getText());
         compra.setSecretaria(secretaria);
         compra.setProveedor(proveedor);
         compra.setEstado("Activa");
@@ -167,14 +166,25 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             // Obtén los valores actuales de la fila seleccionada para editarlos
             DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
             String material = modelo.getValueAt(filaSeleccionada, 0).toString();
+            String proveedor = modelo.getValueAt(filaSeleccionada, 1).toString();
+            Float precio = Float.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString());
+            int cantidad = Integer.parseInt(modelo.getValueAt(filaSeleccionada, 3).toString());
+            String unidadMedida = modelo.getValueAt(filaSeleccionada, 4).toString();
             // Repite para otras columnas según necesites
 
             // Muestra un diálogo para editar. Este es solo un ejemplo simple.
             String nuevoMaterial = JOptionPane.showInputDialog(null, "Editar Material:", material);
+            String nuevoPrecio = JOptionPane.showInputDialog(null, "Editar Precio:", precio);
+            String nuevaCantidad = JOptionPane.showInputDialog(null, "Editar Cantidad:", cantidad);
+            String nuevaUnidadMedida = JOptionPane.showInputDialog(null,"Editar Unidad de Medida:", unidadMedida);
             // Repite para otras columnas según necesites
 
             // Actualiza la tabla con los nuevos valores
             modelo.setValueAt(nuevoMaterial, filaSeleccionada, 0);
+            modelo.setValueAt(proveedor, filaSeleccionada, 1);
+            modelo.setValueAt(nuevoPrecio, filaSeleccionada, 2);
+            modelo.setValueAt(nuevaCantidad, filaSeleccionada, 3);
+            modelo.setValueAt(nuevaUnidadMedida, filaSeleccionada, 4);
             // Repite para otras columnas según necesites
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para editar.");
@@ -228,11 +238,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMaterialActionPerformed(evt);
-            }
-        });
         jPanel2.add(cbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 410, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -378,6 +383,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             if (tblDetalleCompra.getModel().getRowCount() > 0) {
                 agregar();
                 JOptionPane.showMessageDialog(null, "Compra Guardada");
+                limpiarTabla();
             } else {
                 JOptionPane.showMessageDialog(null, "No hay detalles de compra para guardar.");
             }
@@ -410,10 +416,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCantidadKeyTyped
 
-    private void cbMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaterialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMaterialActionPerformed
-
     private void cbProovedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProovedor1ActionPerformed
         despliegaDatosMaterial();
         cbProovedor1.setEnabled(false);
@@ -426,7 +428,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         txtCantidad.setText("");
         txtCosto.setText("");
         txtUnidadMedida.setText("");
-        limpiarTabla();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -441,7 +442,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         eliminarFilaSeleccionada();
-        btnLimpiarActionPerformed(evt);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

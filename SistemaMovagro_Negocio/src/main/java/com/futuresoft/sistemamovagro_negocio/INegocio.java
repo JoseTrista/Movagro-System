@@ -5,6 +5,7 @@
 package com.futuresoft.sistemamovagro_negocio;
 
 import com.futuresoft.sistemamovagro_dominio.Compra;
+import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
@@ -29,5 +30,5 @@ public interface INegocio {
     
     public Secretaria  recuperaSecretaria();
     
-    
+    public List<DetalleCompra> recuperaDetalleCompra(int compraId);
 }

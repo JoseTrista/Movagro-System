@@ -37,9 +37,6 @@ public class Compra implements Serializable {
     @Column(name = "Fecha")
     private Date fecha;
     
-    @Column(name = "Unidad_Medida")
-    private String unidad_medida;
-    
     @Column(name = "Costo_total")
     private float costo;
     
@@ -64,35 +61,32 @@ public class Compra implements Serializable {
         this.id = id;
     }
 
-    public Compra(Integer id, Date fecha, String condicion,float costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
+    public Compra(Integer id, Date fecha,float costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.id = id;
         this.fecha = fecha;
-        this.unidad_medida = condicion;
+        
         this.costo = costo;
         this.detalleCompra = detalleCompra;
         this.proveedor = proveedor;
     }
 
-    public Compra(Date fecha, String condicion, float costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
+    public Compra(Date fecha, float costo, List<DetalleCompra> detalleCompra, Proveedor proveedor) {
         this.fecha = fecha;
-        this.unidad_medida = condicion;
         this.costo = costo;
         this.detalleCompra = detalleCompra;
         this.proveedor = proveedor;
     }
 
-    public Compra(Date fecha, String condicion, float costo, Proveedor proveedor, Secretaria secretaria) {
+    public Compra(Date fecha, float costo, Proveedor proveedor, Secretaria secretaria) {
         this.fecha = fecha;
-        this.unidad_medida = condicion;
         this.costo = costo;
         this.proveedor = proveedor;
         this.secretaria = secretaria;
     }
 
-    public Compra(Integer id, Date fecha, String unidad_medida,float costo, String estado, List<DetalleCompra> detalleCompra, Proveedor proveedor, Secretaria secretaria) {
+    public Compra(Integer id, Date fecha,float costo, String estado, List<DetalleCompra> detalleCompra, Proveedor proveedor, Secretaria secretaria) {
         this.id = id;
         this.fecha = fecha;
-        this.unidad_medida = unidad_medida;
         this.costo = costo;
         this.estado = estado;
         this.detalleCompra = detalleCompra;
@@ -114,14 +108,6 @@ public class Compra implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public String getUnidad_medida() {
-        return unidad_medida;
-    }
-
-    public void setUnidad_medida(String unidad_medida) {
-        this.unidad_medida = unidad_medida;
     }
 
     public float getCosto() {
@@ -186,7 +172,7 @@ public class Compra implements Serializable {
 
     @Override
     public String toString() {
-        return "com.futuresoft.sistemamovagro_dominio.Compra[ id=" + id + " ]";
+        return "id:" + id + "   "+"Costo Total:"+ costo+ "   "+ "Fecha:"+ fecha;
     }
     
 }

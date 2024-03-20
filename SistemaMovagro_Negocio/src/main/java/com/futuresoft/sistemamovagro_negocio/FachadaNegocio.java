@@ -5,6 +5,7 @@
 package com.futuresoft.sistemamovagro_negocio;
 
 import com.futuresoft.sistemamovagro_dominio.Compra;
+import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
@@ -52,6 +53,11 @@ public class FachadaNegocio implements INegocio{
     @Override
     public List<Compra> recuperaCompras() {
       return com.recuperaCompras();
+    }
+
+    @Override
+    public List<DetalleCompra> recuperaDetalleCompra(int compraId) {
+       return com.recuperaDetalleCompra(compraId);
     }
     
 }

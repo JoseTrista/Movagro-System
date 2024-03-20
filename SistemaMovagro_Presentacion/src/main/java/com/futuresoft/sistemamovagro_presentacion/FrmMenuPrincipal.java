@@ -148,7 +148,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarMouseExited
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        List<Compra> listaC=negocio.recuperaCompras();
+        FrmEditarCompra editar = new FrmEditarCompra(listaC);
+        editar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseEntered

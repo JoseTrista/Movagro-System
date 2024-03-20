@@ -5,8 +5,10 @@
 package com.futuresoft.sistemamovagro_datos;
 
 import com.futuresoft.sistemamovagro_dominio.Compra;
+import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import javax.persistence.EntityManager;
 import java.util.List;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -85,5 +87,33 @@ public class CompraDAO {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public List<DetalleCompra> recuperarDetallesPorCompraId(int compraId) {
+        EntityManager em = conexion.getEM();
+        em.getTransaction().begin();
+        try {
+            // Crea la consulta JPQL
+            TypedQuery<DetalleCompra> query = em.createQuery(
+                    "SELECT d FROM DetalleCompra d WHERE d.compra.id = :compraId", DetalleCompra.class);
+            query.setParameter("compraId", compraId);
+            
+            // Ejecuta la consulta y obtiene la lista de detalles
+            List<DetalleCompra> detalles = query.getResultList();
+            
+            // Cierra la transacción
+            em.getTransaction().commit();
+            
+            // Devuelve la lista de detalles
+            return detalles;
+        } catch (Exception e) {
+            // En caso de error, deshace la transacción
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        }
+        // Retorna null o una lista vacía en caso de error
+        return null;
     }
 } 

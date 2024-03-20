@@ -5,6 +5,7 @@
 package com.futuresoft.sistemamovagro_datos;
 
 import com.futuresoft.sistemamovagro_dominio.Compra;
+import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
@@ -26,6 +27,8 @@ public interface IDatos {
     public Compra editarCompra(Compra compra);
     
     public Compra eliminarCompra(int compraid);
+    
+    public List<DetalleCompra> recuperaDetalleCompra(int compraId);
     
     public Secretaria  recuperaSecretaria();
 }

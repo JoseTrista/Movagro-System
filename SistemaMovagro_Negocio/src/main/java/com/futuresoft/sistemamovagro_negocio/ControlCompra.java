@@ -7,6 +7,7 @@ package com.futuresoft.sistemamovagro_negocio;
 import com.futuresoft.sistemamovagro_datos.FachadaDatos;
 import com.futuresoft.sistemamovagro_datos.IDatos;
 import com.futuresoft.sistemamovagro_dominio.Compra;
+import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
 import java.util.List;
 /**
@@ -39,5 +40,9 @@ public class ControlCompra {
 
     public List<Compra> recuperaCompras(){
         return datos.recuperarCompras();
+    }
+    
+    public List<DetalleCompra> recuperaDetalleCompra(int compraId){
+        return datos.recuperaDetalleCompra(compraId);
     }
 }

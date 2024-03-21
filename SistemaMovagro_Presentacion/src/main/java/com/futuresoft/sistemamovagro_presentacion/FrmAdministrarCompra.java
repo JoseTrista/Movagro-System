@@ -342,7 +342,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 490, 89, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
-        jLabel1.setText("Administrar Compra");
+        jLabel1.setText("Registrar Compra");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         cbProovedor1.addActionListener(new java.awt.event.ActionListener() {

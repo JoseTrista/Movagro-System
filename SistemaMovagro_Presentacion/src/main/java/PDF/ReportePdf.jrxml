@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4fe23634-f46b-486f-beaf-064df9b90cb7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="material" class="java.lang.String"/>
+	<field name="proveedor" class="java.lang.String"/>
+	<field name="precio" class="java.lang.String"/>
+	<field name="ejemplares" class="java.lang.String"/>
+	<field name="medida" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="171" y="16" width="229" height="48" uuid="74ec3e5e-b2f5-4b5f-a3ed-cfc96b93b87a"/>
+				<textElement>
+					<font size="28"/>
+				</textElement>
+				<text><![CDATA[Compra realizada]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="5" y="0" width="111" height="20" uuid="4a3cc6ef-5294-4ca5-bbb7-e67bb7b73495"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Material]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="116" y="0" width="111" height="20" uuid="6cc144f0-09dd-43ad-bc54-5dc64fed2e30"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="227" y="0" width="111" height="20" uuid="cf47b1be-bb37-40a6-9f61-d5ae32d4a61b"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="338" y="0" width="111" height="20" uuid="10ac88df-0e59-45bc-b909-0a290008566e"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ejemplares]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="449" y="0" width="100" height="20" uuid="c8c45813-aa10-4332-a264-1c3ffa1d4c4d"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad de Medida]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="5" y="0" width="111" height="20" uuid="2b70e5a3-9cec-4966-9fd0-396157444afe"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{material}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="116" y="0" width="111" height="20" uuid="0f9a2ae7-4151-428d-801f-416364a72554"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{proveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="0" width="111" height="20" uuid="d676b7c5-5c65-45b5-8392-5c54fccbd0fd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="0" width="111" height="20" uuid="3aa9a435-2fa2-4ecb-a638-922db2a85042"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{ejemplares}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="449" y="0" width="100" height="20" uuid="a12d8859-c9b9-47e7-9470-5c4671dd75fb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{medida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="35" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

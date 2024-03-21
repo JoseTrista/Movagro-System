@@ -9,66 +9,65 @@ package PDF;
  * @author jctri
  */
 public class PdfReporte {
-    private String Material;
-
-    private String Proveedor;
-
-    private String Precio;
-
-    private String Ejemplares;
-
-    private String UnidadMedida;
-
+    private String material;
+    private String proveedor;
+    private String precio;
+    private String ejemplares;
+    private String unidadmedida;
+    
     public PdfReporte() {
     }
 
-    public PdfReporte(String Material, String Proveedor, String Precio, String Ejemplares, String UnidadMedida) {
-        this.Material = Material;
-        this.Proveedor = Proveedor;
-        this.Precio = Precio;
-        this.Ejemplares = Ejemplares;
-        this.UnidadMedida = UnidadMedida;
+    public PdfReporte(String material, String proveedor, String precio, String ejemplares, String unidadmedida) {
+        this.material = material;
+        this.proveedor = proveedor;
+        this.precio = precio;
+        this.ejemplares = ejemplares;
+        this.unidadmedida = unidadmedida;
     }
 
+    
+
     public String getMaterial() {
-        return Material;
+        return material;
     }
 
     public void setMaterial(String Material) {
-        this.Material = Material;
+        this.material = Material;
     }
 
     public String getProveedor() {
-        return Proveedor;
+        return proveedor;
     }
 
     public void setProveedor(String Proveedor) {
-        this.Proveedor = Proveedor;
+        this.proveedor = Proveedor;
     }
 
     public String getPrecio() {
-        return Precio;
+        return precio;
     }
 
     public void setPrecio(String Precio) {
-        this.Precio = Precio;
+        this.precio = Precio;
     }
 
     public String getEjemplares() {
-        return Ejemplares;
+        return ejemplares;
     }
 
     public void setEjemplares(String Ejemplares) {
-        this.Ejemplares = Ejemplares;
+        this.ejemplares = Ejemplares;
     }
 
-    public String getUnidadMedida() {
-        return UnidadMedida;
-    }
+    
 
-    public void setUnidadMedida(String UnidadMedida) {
-        this.UnidadMedida = UnidadMedida;
+    @Override
+    public String toString() {
+        return "PdfReporte{" + "material=" + material + ", proveedor=" + proveedor + ", precio=" + precio + ", ejemplares=" + ejemplares + ", unidadmedida=" + unidadmedida + '}';
     }
+    
+    
     
     
 }

@@ -4,6 +4,8 @@
  */
 package com.futuresoft.sistemamovagro_presentacion;
 
+import PDF.PdfReporte;
+import PDF.reporte;
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
@@ -11,12 +13,25 @@ import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
 import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -26,6 +41,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
     INegocio negocio;
     private List<Proveedor> listaProveedores;
+    private List<reporte> pdf;
 
     /**
      * Creates new form FrmAdministrarCompra
@@ -39,6 +55,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         despliegaDatosRecuperados(proveedor);
         despliegaDatosMaterial();
         cbProovedor1.setEnabled(true);
+        pdf= new ArrayList<>();
     }
 
     /**
@@ -88,11 +105,19 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         String material = cbMaterial.getSelectedItem().toString();
         String costo = txtCosto.getText();
         String ejemplares = txtCantidad.getText();
-        String unidadMedida = txtUnidadMedida.getText();
-        modelo.addRow(new Object[]{material, proveedor, costo, ejemplares, unidadMedida});
+        String unidadmedida = txtUnidadMedida.getText();
+        reporte r = new reporte();
+        r.setEjemplares(ejemplares);
+        r.setMaterial(material);
+        r.setMedida(unidadmedida);
+        r.setPrecio(costo);
+        r.setProveedor(proveedor);
+        pdf.add(r);
+        modelo.addRow(new Object[]{material, proveedor, costo, ejemplares, unidadmedida});
     }
 
     public void limpiarTabla() {
+        pdf=new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
 
         modelo.setRowCount(0);
@@ -331,6 +356,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 93, -1));
 
         btnPDF.setText("PDF");
+        btnPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDFActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 490, 78, -1));
 
         btnGuardar.setText("Guardar");
@@ -447,6 +477,30 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         editarFilaSeleccionada();
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
+        // TODO add your handling code here:
+        try {
+                Map parametro = new HashMap();
+                
+                // Cargar los datos en un JRBeanCollectionDataSource
+                JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(pdf);
+                
+                // Cargar el archivo JRXML del reporte
+                InputStream reportFile = getClass().getResourceAsStream("/ReportePdf.jrxml");
+                JasperReport jasperReport = JasperCompileManager.compileReport(reportFile);
+
+                // Llenar el reporte con los datos
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
+                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+
+                jasperViewer.setVisible(true);
+                // Visualizar el reporte
+                //JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
+            } catch (JRException ex) {
+                Logger.getLogger(FrmAdministrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_btnPDFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

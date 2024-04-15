@@ -55,7 +55,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         despliegaDatosRecuperados(proveedor);
         despliegaDatosMaterial();
         cbProovedor1.setEnabled(true);
-        pdf= new ArrayList<>();
+        pdf = new ArrayList<>();
     }
 
     /**
@@ -117,7 +117,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }
 
     public void limpiarTabla() {
-        pdf=new ArrayList<>();
+        pdf = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
 
         modelo.setRowCount(0);
@@ -172,16 +172,25 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         return detallesCompra;
     }
 
-    public void eliminarFilaSeleccionada() {
+    public void eliminarFilasSeleccionadas() {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
-        int filaSeleccionada = tblDetalleCompra.getSelectedRow();
+        int[] filasSeleccionadas = tblDetalleCompra.getSelectedRows();
 
-        // Verifica si hay una fila seleccionada
-        if (filaSeleccionada >= 0) {
-            // Elimina la fila seleccionada
-            modelo.removeRow(filaSeleccionada);
+        // Verifica si hay filas seleccionadas
+        if (filasSeleccionadas.length > 0) {
+            // Pregunta al usuario si está seguro de eliminar las filas seleccionadas
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar el detalle de compra seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                // Itera sobre las filas seleccionadas en orden inverso para evitar problemas con los índices al eliminar
+                for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
+                    int filaSeleccionada = filasSeleccionadas[i];
+                    // Elimina la fila seleccionada
+                    modelo.removeRow(filaSeleccionada);
+                }
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para eliminar.");
+            JOptionPane.showMessageDialog(null, "Por favor, selecciona una o más filas para eliminar.");
         }
     }
 
@@ -195,22 +204,33 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             Float precio = Float.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString());
             int cantidad = Integer.parseInt(modelo.getValueAt(filaSeleccionada, 3).toString());
             String unidadMedida = modelo.getValueAt(filaSeleccionada, 4).toString();
-            // Repite para otras columnas según necesites
+
+            // Guarda los valores originales
+            String nuevoMaterial = material;
+            String nuevoPrecio = precio.toString();
+            String nuevaCantidad = Integer.toString(cantidad);
+            String nuevaUnidadMedida = unidadMedida;
 
             // Muestra un diálogo para editar. Este es solo un ejemplo simple.
-            String nuevoMaterial = JOptionPane.showInputDialog(null, "Editar Material:", material);
-            String nuevoPrecio = JOptionPane.showInputDialog(null, "Editar Precio:", precio);
-            String nuevaCantidad = JOptionPane.showInputDialog(null, "Editar Cantidad:", cantidad);
-            String nuevaUnidadMedida = JOptionPane.showInputDialog(null,"Editar Unidad de Medida:", unidadMedida);
-            // Repite para otras columnas según necesites
+            nuevoMaterial = JOptionPane.showInputDialog(null, "Editar Material:", material);
+            if (nuevoMaterial != null) { // Verifica si el usuario ingresó un nuevo valor o canceló
+                nuevoPrecio = JOptionPane.showInputDialog(null, "Editar Precio:", precio);
+                if (nuevoPrecio != null) {
+                    nuevaCantidad = JOptionPane.showInputDialog(null, "Editar Cantidad:", cantidad);
+                    if (nuevaCantidad != null) {
+                        nuevaUnidadMedida = JOptionPane.showInputDialog(null, "Editar Unidad de Medida:", unidadMedida);
+                    }
+                }
+            }
 
-            // Actualiza la tabla con los nuevos valores
-            modelo.setValueAt(nuevoMaterial, filaSeleccionada, 0);
-            modelo.setValueAt(proveedor, filaSeleccionada, 1);
-            modelo.setValueAt(nuevoPrecio, filaSeleccionada, 2);
-            modelo.setValueAt(nuevaCantidad, filaSeleccionada, 3);
-            modelo.setValueAt(nuevaUnidadMedida, filaSeleccionada, 4);
-            // Repite para otras columnas según necesites
+            // Actualiza la tabla con los nuevos valores si el usuario ingresó nuevos valores
+            if (nuevoMaterial != null && nuevoPrecio != null && nuevaCantidad != null && nuevaUnidadMedida != null) {
+                modelo.setValueAt(nuevoMaterial, filaSeleccionada, 0);
+                modelo.setValueAt(proveedor, filaSeleccionada, 1);
+                modelo.setValueAt(Float.parseFloat(nuevoPrecio), filaSeleccionada, 2);
+                modelo.setValueAt(Integer.parseInt(nuevaCantidad), filaSeleccionada, 3);
+                modelo.setValueAt(nuevaUnidadMedida, filaSeleccionada, 4);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para editar.");
         }
@@ -414,6 +434,12 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
                 agregar();
                 JOptionPane.showMessageDialog(null, "Compra Guardada");
                 limpiarTabla();
+                cbProovedor1.setEnabled(true);
+
+                cbMaterial.setSelectedIndex(0);
+                txtCantidad.setText("");
+                txtCosto.setText("");
+                txtUnidadMedida.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "No hay detalles de compra para guardar.");
             }
@@ -449,6 +475,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private void cbProovedor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProovedor1ActionPerformed
         despliegaDatosMaterial();
         cbProovedor1.setEnabled(false);
+
     }//GEN-LAST:event_cbProovedor1ActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -466,12 +493,17 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Favor de llenar todos los campos");
         } else {
             this.llenarTabla();
+            cbProovedor1.setEnabled(false);
+            txtCantidad.setText("");
+            txtCosto.setText("");
+            txtUnidadMedida.setText("");
+
         }
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminarFilaSeleccionada();
+        eliminarFilasSeleccionadas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -481,25 +513,25 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
         // TODO add your handling code here:
         try {
-                Map parametro = new HashMap();
-                
-                // Cargar los datos en un JRBeanCollectionDataSource
-                JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(pdf);
-                
-                // Cargar el archivo JRXML del reporte
-                InputStream reportFile = getClass().getResourceAsStream("/ReportePdf.jrxml");
-                JasperReport jasperReport = JasperCompileManager.compileReport(reportFile);
+            Map parametro = new HashMap();
 
-                // Llenar el reporte con los datos
-                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
-                JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+            // Cargar los datos en un JRBeanCollectionDataSource
+            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(pdf);
 
-                jasperViewer.setVisible(true);
-                // Visualizar el reporte
-                //JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
-            } catch (JRException ex) {
-                Logger.getLogger(FrmAdministrarCompra.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            // Cargar el archivo JRXML del reporte
+            InputStream reportFile = getClass().getResourceAsStream("/ReportePdf.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportFile);
+
+            // Llenar el reporte con los datos
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametro, beanColDataSource);
+            JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
+
+            jasperViewer.setVisible(true);
+            // Visualizar el reporte
+            //JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
+        } catch (JRException ex) {
+            Logger.getLogger(FrmAdministrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnPDFActionPerformed
 
 

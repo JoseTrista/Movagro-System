@@ -176,18 +176,18 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
         int[] filasSeleccionadas = tblDetalleCompra.getSelectedRows();
 
-        // Verifica si hay filas seleccionadas
         if (filasSeleccionadas.length > 0) {
-            // Pregunta al usuario si está seguro de eliminar las filas seleccionadas
+
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar el detalle de compra seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
             if (opcion == JOptionPane.YES_OPTION) {
-                // Itera sobre las filas seleccionadas en orden inverso para evitar problemas con los índices al eliminar
+
                 for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
                     int filaSeleccionada = filasSeleccionadas[i];
-                    // Elimina la fila seleccionada
+
                     modelo.removeRow(filaSeleccionada);
                 }
+                JOptionPane.showMessageDialog(null, "El detalle de compra ha sido eliminado.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una o más filas para eliminar.");
@@ -197,7 +197,6 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     public void editarFilaSeleccionada() {
         int filaSeleccionada = tblDetalleCompra.getSelectedRow();
         if (filaSeleccionada >= 0) {
-            // Obtén los valores actuales de la fila seleccionada para editarlos
             DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
             String material = modelo.getValueAt(filaSeleccionada, 0).toString();
             String proveedor = modelo.getValueAt(filaSeleccionada, 1).toString();
@@ -205,31 +204,31 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             int cantidad = Integer.parseInt(modelo.getValueAt(filaSeleccionada, 3).toString());
             String unidadMedida = modelo.getValueAt(filaSeleccionada, 4).toString();
 
-            // Guarda los valores originales
-            String nuevoMaterial = material;
-            String nuevoPrecio = precio.toString();
-            String nuevaCantidad = Integer.toString(cantidad);
-            String nuevaUnidadMedida = unidadMedida;
-
-            // Muestra un diálogo para editar. Este es solo un ejemplo simple.
-            nuevoMaterial = JOptionPane.showInputDialog(null, "Editar Material:", material);
-            if (nuevoMaterial != null) { // Verifica si el usuario ingresó un nuevo valor o canceló
-                nuevoPrecio = JOptionPane.showInputDialog(null, "Editar Precio:", precio);
-                if (nuevoPrecio != null) {
-                    nuevaCantidad = JOptionPane.showInputDialog(null, "Editar Cantidad:", cantidad);
-                    if (nuevaCantidad != null) {
-                        nuevaUnidadMedida = JOptionPane.showInputDialog(null, "Editar Unidad de Medida:", unidadMedida);
+            String nuevoMaterial = JOptionPane.showInputDialog(null, "Editar Material:", material);
+            if (nuevoMaterial != null && !nuevoMaterial.isEmpty()) {
+                String nuevoPrecio = JOptionPane.showInputDialog(null, "Editar Precio:", precio);
+                if (nuevoPrecio != null && !nuevoPrecio.isEmpty()) {
+                    String nuevaCantidad = JOptionPane.showInputDialog(null, "Editar Cantidad:", cantidad);
+                    if (nuevaCantidad != null && !nuevaCantidad.isEmpty()) {
+                        String nuevaUnidadMedida = JOptionPane.showInputDialog(null, "Editar Unidad de Medida:", unidadMedida);
+                        if (nuevaUnidadMedida != null && !nuevaUnidadMedida.isEmpty()) {
+                            // Actualiza la tabla con los nuevos valores
+                            modelo.setValueAt(nuevoMaterial, filaSeleccionada, 0);
+                            modelo.setValueAt(proveedor, filaSeleccionada, 1);
+                            modelo.setValueAt(Float.parseFloat(nuevoPrecio), filaSeleccionada, 2);
+                            modelo.setValueAt(Integer.parseInt(nuevaCantidad), filaSeleccionada, 3);
+                            modelo.setValueAt(nuevaUnidadMedida, filaSeleccionada, 4);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "La Unidad de Medida no puede estar vacía.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La Cantidad no puede estar vacía.");
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "El Precio no puede estar vacío.");
                 }
-            }
-
-            // Actualiza la tabla con los nuevos valores si el usuario ingresó nuevos valores
-            if (nuevoMaterial != null && nuevoPrecio != null && nuevaCantidad != null && nuevaUnidadMedida != null) {
-                modelo.setValueAt(nuevoMaterial, filaSeleccionada, 0);
-                modelo.setValueAt(proveedor, filaSeleccionada, 1);
-                modelo.setValueAt(Float.parseFloat(nuevoPrecio), filaSeleccionada, 2);
-                modelo.setValueAt(Integer.parseInt(nuevaCantidad), filaSeleccionada, 3);
-                modelo.setValueAt(nuevaUnidadMedida, filaSeleccionada, 4);
+            } else {
+                JOptionPane.showMessageDialog(null, "El Material no puede estar vacío.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para editar.");
@@ -297,6 +296,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jLabel4.setText("Cantidad");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
 
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
@@ -401,6 +405,17 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             }
         });
         jPanel2.add(cbProovedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 418, -1));
+
+        txtUnidadMedida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUnidadMedidaActionPerformed(evt);
+            }
+        });
+        txtUnidadMedida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUnidadMedidaKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 410, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -533,6 +548,29 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             Logger.getLogger(FrmAdministrarCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPDFActionPerformed
+
+    private void txtUnidadMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUnidadMedidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUnidadMedidaActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
+    private void txtUnidadMedidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUnidadMedidaKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isLetterOrDigit(c)) {
+            evt.consume();
+        }
+
+        // Verificar la longitud del texto ingresado
+        if (txtUnidadMedida.getText().length() == 10) {
+            evt.consume();
+        }
+
+
+    }//GEN-LAST:event_txtUnidadMedidaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

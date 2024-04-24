@@ -106,14 +106,20 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         String costo = txtCosto.getText();
         String ejemplares = txtCantidad.getText();
         String unidadmedida = txtUnidadMedida.getText();
+
+        // Crear un nuevo objeto reporte y establecer sus atributos
         reporte r = new reporte();
         r.setEjemplares(ejemplares);
         r.setMaterial(material);
         r.setMedida(unidadmedida);
         r.setPrecio(costo);
         r.setProveedor(proveedor);
+
+        // Agregar el objeto reporte a la lista pdf
         pdf.add(r);
-        modelo.addRow(new Object[]{material, proveedor, costo, ejemplares, unidadmedida});
+
+        // Agregar una nueva fila a la tabla con los datos del objeto reporte
+        modelo.addRow(new Object[]{r.getMaterial(), r.getProveedor(), r.getPrecio(), r.getEjemplares(), r.getMedida()});
     }
 
     public void limpiarTabla() {
@@ -177,13 +183,13 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         int[] filasSeleccionadas = tblDetalleCompra.getSelectedRows();
 
         if (filasSeleccionadas.length > 0) {
-
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de eliminar el detalle de compra seleccionado?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
             if (opcion == JOptionPane.YES_OPTION) {
-
                 for (int i = filasSeleccionadas.length - 1; i >= 0; i--) {
                     int filaSeleccionada = filasSeleccionadas[i];
+                    reporte detalleCompra = pdf.get(filaSeleccionada);
+                    detalleCompra.setEliminado(true); // Marcar el detalle de compra como eliminado
 
                     modelo.removeRow(filaSeleccionada);
                 }
@@ -198,37 +204,28 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         int filaSeleccionada = tblDetalleCompra.getSelectedRow();
         if (filaSeleccionada >= 0) {
             DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
-            String material = modelo.getValueAt(filaSeleccionada, 0).toString();
-            String proveedor = modelo.getValueAt(filaSeleccionada, 1).toString();
             Float precio = Float.valueOf(modelo.getValueAt(filaSeleccionada, 2).toString());
             int cantidad = Integer.parseInt(modelo.getValueAt(filaSeleccionada, 3).toString());
             String unidadMedida = modelo.getValueAt(filaSeleccionada, 4).toString();
 
-            String nuevoMaterial = JOptionPane.showInputDialog(null, "Editar Material:", material);
-            if (nuevoMaterial != null && !nuevoMaterial.isEmpty()) {
-                String nuevoPrecio = JOptionPane.showInputDialog(null, "Editar Precio:", precio);
-                if (nuevoPrecio != null && !nuevoPrecio.isEmpty()) {
-                    String nuevaCantidad = JOptionPane.showInputDialog(null, "Editar Cantidad:", cantidad);
-                    if (nuevaCantidad != null && !nuevaCantidad.isEmpty()) {
-                        String nuevaUnidadMedida = JOptionPane.showInputDialog(null, "Editar Unidad de Medida:", unidadMedida);
-                        if (nuevaUnidadMedida != null && !nuevaUnidadMedida.isEmpty()) {
-                            // Actualiza la tabla con los nuevos valores
-                            modelo.setValueAt(nuevoMaterial, filaSeleccionada, 0);
-                            modelo.setValueAt(proveedor, filaSeleccionada, 1);
-                            modelo.setValueAt(Float.parseFloat(nuevoPrecio), filaSeleccionada, 2);
-                            modelo.setValueAt(Integer.parseInt(nuevaCantidad), filaSeleccionada, 3);
-                            modelo.setValueAt(nuevaUnidadMedida, filaSeleccionada, 4);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "La Unidad de Medida no puede estar vacía.");
-                        }
+            String nuevoPrecio = JOptionPane.showInputDialog(null, "Editar Precio:", precio);
+            if (nuevoPrecio != null && !nuevoPrecio.isEmpty()) {
+                String nuevaCantidad = JOptionPane.showInputDialog(null, "Editar Cantidad:", cantidad);
+                if (nuevaCantidad != null && !nuevaCantidad.isEmpty()) {
+                    String nuevaUnidadMedida = JOptionPane.showInputDialog(null, "Editar Unidad de Medida:", unidadMedida);
+                    if (nuevaUnidadMedida != null && !nuevaUnidadMedida.isEmpty()) {
+                        // Actualiza la tabla con los nuevos valores
+                        modelo.setValueAt(Float.parseFloat(nuevoPrecio), filaSeleccionada, 2);
+                        modelo.setValueAt(Integer.parseInt(nuevaCantidad), filaSeleccionada, 3);
+                        modelo.setValueAt(nuevaUnidadMedida, filaSeleccionada, 4);
                     } else {
-                        JOptionPane.showMessageDialog(null, "La Cantidad no puede estar vacía.");
+                        JOptionPane.showMessageDialog(null, "La Unidad de Medida no puede estar vacía.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "El Precio no puede estar vacío.");
+                    JOptionPane.showMessageDialog(null, "La Cantidad no puede estar vacía.");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "El Material no puede estar vacío.");
+                JOptionPane.showMessageDialog(null, "El Precio no puede estar vacío.");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila para editar.");
@@ -312,6 +309,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         lblUnidadMedida.setText("Unidad de Medida");
         jPanel2.add(lblUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
+        txtCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCostoActionPerformed(evt);
+            }
+        });
         txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCostoKeyTyped(evt);
@@ -526,12 +528,30 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDFActionPerformed
-        // TODO add your handling code here:
         try {
-            Map parametro = new HashMap();
+            // Verificar si la tabla de detalle de compra está vacía
+            if (tblDetalleCompra.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "La tabla de detalle de compra está vacía. No se puede generar el informe PDF.");
+                return; // Salir del método
+            }
 
-            // Cargar los datos en un JRBeanCollectionDataSource
-            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(pdf);
+            // Filtrar los detalles de compra eliminados y editados
+            List<PdfReporte> detallesCompraFiltrados = new ArrayList<>();
+            DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+            for (int i = 0; i < modelo.getRowCount(); i++) {
+                String material = modelo.getValueAt(i, 0).toString();
+                String proveedor = modelo.getValueAt(i, 1).toString();
+                String precio = modelo.getValueAt(i, 2).toString();
+                String ejemplares = modelo.getValueAt(i, 3).toString();
+                String unidadMedida = modelo.getValueAt(i, 4).toString();
+                PdfReporte detalleCompra = new PdfReporte(material, proveedor, precio, ejemplares, unidadMedida);
+                detallesCompraFiltrados.add(detalleCompra);
+            }
+
+            Map<String, Object> parametro = new HashMap<>();
+
+            // Cargar los datos filtrados en un JRBeanCollectionDataSource
+            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(detallesCompraFiltrados);
 
             // Cargar el archivo JRXML del reporte
             InputStream reportFile = getClass().getResourceAsStream("/ReportePdf.jrxml");
@@ -542,11 +562,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
             JasperViewer jasperViewer = new JasperViewer(jasperPrint, false);
 
             jasperViewer.setVisible(true);
-            // Visualizar el reporte
-            //JasperExportManager.exportReportToPdfFile(jasperPrint, "./ReporteTramites.pdf");
         } catch (JRException ex) {
             Logger.getLogger(FrmAdministrarCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
     }//GEN-LAST:event_btnPDFActionPerformed
 
     private void txtUnidadMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUnidadMedidaActionPerformed
@@ -571,6 +591,10 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_txtUnidadMedidaKeyTyped
+
+    private void txtCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCostoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCostoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

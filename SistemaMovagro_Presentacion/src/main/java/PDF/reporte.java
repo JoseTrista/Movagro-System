@@ -14,6 +14,7 @@ public class reporte {
     private String ejemplares;
     private String precio;
     private String proveedor;
+    private boolean eliminado;
     public reporte(){
         
     }
@@ -58,6 +59,13 @@ public class reporte {
         this.proveedor = proveedor;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
     @Override
     public String toString() {
         return "reporte{" + "medida=" + medida + ", material=" + material + ", ejemplares=" + ejemplares + ", precio=" + precio + ", proveedor=" + proveedor + '}';

@@ -9,12 +9,13 @@ package PDF;
  * @author jctri
  */
 public class PdfReporte {
+
     private String material;
     private String proveedor;
     private String precio;
     private String ejemplares;
-    private String unidadmedida;
-    
+    private String medida;
+
     public PdfReporte() {
     }
 
@@ -23,10 +24,8 @@ public class PdfReporte {
         this.proveedor = proveedor;
         this.precio = precio;
         this.ejemplares = ejemplares;
-        this.unidadmedida = unidadmedida;
+        this.medida = unidadmedida;
     }
-
-    
 
     public String getMaterial() {
         return material;
@@ -60,14 +59,19 @@ public class PdfReporte {
         this.ejemplares = Ejemplares;
     }
 
+    public String getMedida() {
+        return medida;
+    }
+
+    public void setMedida(String medida) {
+        this.medida = medida;
+    }
+    
     
 
     @Override
     public String toString() {
-        return "PdfReporte{" + "material=" + material + ", proveedor=" + proveedor + ", precio=" + precio + ", ejemplares=" + ejemplares + ", unidadmedida=" + unidadmedida + '}';
+        return "PdfReporte{" + "material=" + material + ", proveedor=" + proveedor + ", precio=" + precio + ", ejemplares=" + ejemplares + ", medida=" + medida + '}';
     }
-    
-    
-    
-    
+
 }

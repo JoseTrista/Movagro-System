@@ -31,4 +31,13 @@ public interface IDatos {
     public List<DetalleCompra> recuperaDetalleCompra(int compraId);
     
     public Secretaria  recuperaSecretaria();
+    
+    //Administrar Material CU
+    public Material guardarMaterial(Material material);
+    
+    public List<Material> recuperaMaterial();
+    
+    public Material eliminarMaterial(int materialID);
+    
+    public Material editarMaterial(Material material);
 }

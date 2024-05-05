@@ -31,4 +31,13 @@ public interface INegocio {
     public Secretaria  recuperaSecretaria();
     
     public List<DetalleCompra> recuperaDetalleCompra(int compraId);
+    
+    //Administrar Material CU
+    public Material guardarMaterial(Material material);
+    
+    public  List<Material> recuperaMaterial();
+    
+    public Material eliminarMaterial(int materialID);
+    
+    public Material editarMaterial(Material material);
 }

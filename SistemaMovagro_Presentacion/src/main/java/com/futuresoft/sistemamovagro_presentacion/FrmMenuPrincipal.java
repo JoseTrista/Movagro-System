@@ -39,6 +39,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnAdministrarMaterial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +107,17 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 240, -1));
 
+        btnAdministrarMaterial.setBackground(new java.awt.Color(0, 153, 204));
+        btnAdministrarMaterial.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btnAdministrarMaterial.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdministrarMaterial.setText("Administrar Material");
+        btnAdministrarMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministrarMaterialActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAdministrarMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 240, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,7 +126,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
         );
 
         pack();
@@ -169,6 +181,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void btnAdministrarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarMaterialActionPerformed
+        FrmAdministrarMaterial adminMat = new FrmAdministrarMaterial();
+        adminMat.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAdministrarMaterialActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,6 +225,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAdministrarMaterial;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;

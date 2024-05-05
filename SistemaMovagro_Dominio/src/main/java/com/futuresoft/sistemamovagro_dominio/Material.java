@@ -28,8 +28,8 @@ public class Material implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Integer id;
     
     @Column(name = "Nombre")
     private String nombre;
@@ -56,14 +56,15 @@ public class Material implements Serializable {
     public Material() {
     }
 
-    public Material(Long id, String nombre, String descripcion, String unidadMedida, List<DetalleCompra> detallesCompra, Proveedor proveedor) {
+    public Material(Integer id, String nombre, String descripcion, String unidadMedida, Proveedor proveedor) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
-        this.detallesCompra = detallesCompra;
         this.proveedor = proveedor;
     }
+
+    
 
     public Material(String nombre, String descripcion, String unidadMedida, List<DetalleCompra> detallesCompra, Proveedor proveedor) {
         this.nombre = nombre;
@@ -72,15 +73,15 @@ public class Material implements Serializable {
         this.detallesCompra = detallesCompra;
         this.proveedor = proveedor;
     }
-    
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+    
 
     public String getNombre() {
         return nombre;

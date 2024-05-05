@@ -16,6 +16,7 @@ import java.util.List;
  * @author jctri
  */
 public class FachadaDatos implements IDatos{
+      private MaterialDAO mat = new MaterialDAO();
       private CompraDAO com = new CompraDAO();
       private ProveedorDAO  prov = new ProveedorDAO();
       private SecretariaDAO secretaria = new SecretariaDAO();
@@ -58,6 +59,26 @@ public class FachadaDatos implements IDatos{
     @Override
     public List<DetalleCompra> recuperaDetalleCompra(int compraId) {
         return com.recuperarDetallesPorCompraId(compraId);
+    }
+
+    @Override
+    public Material guardarMaterial(Material material) {
+       return mat.guardarMaterial(material);
+    }
+
+    @Override
+    public List<Material> recuperaMaterial() {
+       return mat.recuperaMaterial();
+    }
+
+    @Override
+    public Material eliminarMaterial(int materialID) {
+       return mat.eliminarMaterial(materialID);
+    }
+
+    @Override
+    public Material editarMaterial(Material material) {
+      return mat.editarMaterial(material);
     }
     
     

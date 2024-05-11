@@ -231,7 +231,7 @@ public class FrmEditarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        FrmMenuPrincipal principal = new FrmMenuPrincipal();
+        FrmAdministrarCompras principal = new FrmAdministrarCompras();
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed

@@ -171,7 +171,7 @@ public class FrmEliminarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        FrmMenuPrincipal principal = new FrmMenuPrincipal();
+        FrmAdministrarCompras principal = new FrmAdministrarCompras();
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed

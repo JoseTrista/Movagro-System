@@ -26,6 +26,28 @@ public class Movimiento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "Material")
+    private String material;
+
+  
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public String getTipoMovimiento() {
+        return tipoMovimiento;
+    }
+
+    public void setTipoMovimiento(String tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+   
+    
     @Column(name = "Cantidad")
     private int cantidad;
     
@@ -34,24 +56,25 @@ public class Movimiento implements Serializable {
     private Date fecha;
     
     @Column(name = "Tipo_Movimiento")
-    private float tipoMovimiento;
+    private String tipoMovimiento;
+
+    public Movimiento(Integer id, String material, int cantidad, Date fecha, String tipoMovimiento) {
+        this.id = id;
+        this.material = material;
+        this.cantidad = cantidad;
+        this.fecha = fecha;
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+    @Override
+    public String toString() {
+        return "Movimiento{" + "id=" + id + ", material=" + material + ", cantidad=" + cantidad + ", fecha=" + fecha + ", tipoMovimiento=" + tipoMovimiento + '}';
+    }
 
     public Movimiento() {
     }
 
-    public Movimiento(Integer id, int cantidad, Date fecha, float tippMovimiento) {
-        this.id = id;
-        this.cantidad = cantidad;
-        this.fecha = fecha;
-        this.tipoMovimiento = tippMovimiento;
-    }
 
-    public Movimiento(int cantidad, Date fecha, float tippMovimiento) {
-        this.cantidad = cantidad;
-        this.fecha = fecha;
-        this.tipoMovimiento = tippMovimiento;
-    }
-    
     
     
     public Integer getId() {
@@ -78,14 +101,7 @@ public class Movimiento implements Serializable {
         this.fecha = fecha;
     }
 
-    public float getTippMovimiento() {
-        return tipoMovimiento;
-    }
-
-    public void setTippMovimiento(float tippMovimiento) {
-        this.tipoMovimiento = tippMovimiento;
-    }
-
+   
     
     
     @Override
@@ -108,9 +124,6 @@ public class Movimiento implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.futuresoft.sistemamovagro_dominio.Movimiento[ id=" + id + " ]";
-    }
+    
     
 }

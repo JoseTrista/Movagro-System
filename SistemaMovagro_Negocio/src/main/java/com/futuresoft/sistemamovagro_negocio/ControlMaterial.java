@@ -14,25 +14,30 @@ import java.util.List;
  * @author jctri
  */
 public class ControlMaterial {
+
     public IDatos datos;
-    
+
     public ControlMaterial() {
         this.datos = new FachadaDatos();
     }
-    
+
     public Material guardarMaterial(Material material) {
-          return datos.guardarMaterial(material);
+        return datos.guardarMaterial(material);
     }
-    
-    public List<Material> recuperaMaterial(){
+
+    public List<Material> recuperaMaterial() {
         return datos.recuperaMaterial();
     }
-    
+
     public Material eliminarMaterial(int materialID) {
-          return datos.eliminarMaterial(materialID);
+        return datos.eliminarMaterial(materialID);
     }
-    
+
     public Material editarMaterial(Material material) {
-          return datos.editarMaterial(material);
+        return datos.editarMaterial(material);
+    }
+
+    public Material actualizarCantidadMaterial(int materialId, int cantidadAdicional) {
+        return datos.actualizarCantidadMaterial(materialId, cantidadAdicional);
     }
 }

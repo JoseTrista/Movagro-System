@@ -37,7 +37,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author jctri
  */
-public class FrmAdministrarCompra extends javax.swing.JFrame {
+public class FrmRegistrarCompra extends javax.swing.JFrame {
 
     INegocio negocio;
     private List<Proveedor> listaProveedores;
@@ -48,7 +48,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
      *
      * @param proveedor
      */
-    public FrmAdministrarCompra(List<Proveedor> proveedor) {
+    public FrmRegistrarCompra(List<Proveedor> proveedor) {
         negocio = new FachadaNegocio();
         initComponents();
         this.listaProveedores = proveedor;
@@ -279,6 +279,11 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cbMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMaterialActionPerformed(evt);
+            }
+        });
         jPanel2.add(cbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 410, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -440,7 +445,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        FrmMenuPrincipal principal = new FrmMenuPrincipal();
+        FrmAdministrarCompras principal = new FrmAdministrarCompras();
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -563,7 +568,7 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
 
             jasperViewer.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(FrmAdministrarCompra.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmRegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -595,6 +600,10 @@ public class FrmAdministrarCompra extends javax.swing.JFrame {
     private void txtCostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCostoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCostoActionPerformed
+
+    private void cbMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaterialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMaterialActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

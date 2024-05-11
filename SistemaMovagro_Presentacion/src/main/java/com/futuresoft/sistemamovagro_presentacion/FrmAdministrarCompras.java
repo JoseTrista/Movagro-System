@@ -15,12 +15,12 @@ import java.util.List;
  *
  * @author jctri
  */
-public class FrmMenuPrincipal extends javax.swing.JFrame {
+public class FrmAdministrarCompras extends javax.swing.JFrame {
     INegocio negocio;
     /**
      * Creates new form FrmMenuPrincipal
      */
-    public FrmMenuPrincipal() {
+    public FrmAdministrarCompras() {
         negocio = new FachadaNegocio();
         initComponents();
     }
@@ -39,7 +39,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnAdministrarMaterial = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,8 +66,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 240, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
-        jLabel1.setText("MENU PRINCIPAL");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        jLabel1.setText("Administrar Compras");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         btnActualizar.setBackground(new java.awt.Color(0, 153, 204));
         btnActualizar.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
@@ -107,22 +107,22 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 240, -1));
 
-        btnAdministrarMaterial.setBackground(new java.awt.Color(0, 153, 204));
-        btnAdministrarMaterial.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btnAdministrarMaterial.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdministrarMaterial.setText("Administrar Material");
-        btnAdministrarMaterial.addActionListener(new java.awt.event.ActionListener() {
+        btnVolver.setBackground(new java.awt.Color(0, 153, 204));
+        btnVolver.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdministrarMaterialActionPerformed(evt);
+                btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdministrarMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 240, -1));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 110, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +145,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                                                 
         List<Proveedor> lista = negocio.recuperaProveedor();
         System.out.println(lista);
-        FrmAdministrarCompra frmAdministrar = new FrmAdministrarCompra(lista);
+        FrmRegistrarCompra frmAdministrar = new FrmRegistrarCompra(lista);
         frmAdministrar.setVisible(true);
         this.dispose();
 
@@ -181,11 +181,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnAdministrarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarMaterialActionPerformed
-        FrmAdministrarMaterial adminMat = new FrmAdministrarMaterial();
-        adminMat.setVisible(true);
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        Menu menu = new Menu();
+        menu.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnAdministrarMaterialActionPerformed
+    }//GEN-LAST:event_btnVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,30 +204,31 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAdministrarCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAdministrarCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAdministrarCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAdministrarCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmMenuPrincipal().setVisible(true);
+                new FrmAdministrarCompras().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnAdministrarMaterial;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

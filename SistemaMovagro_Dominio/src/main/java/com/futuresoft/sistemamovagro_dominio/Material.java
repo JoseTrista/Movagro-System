@@ -40,6 +40,9 @@ public class Material implements Serializable {
     @Column(name = "Unidad_Medida")
     private String unidadMedida;
     
+    @Column(name = "Cantidad")
+    private int cantidad;
+    
     @OneToMany(mappedBy = "material")
     private List<DetalleCompra> detallesCompra;
     
@@ -49,6 +52,7 @@ public class Material implements Serializable {
     
     @ManyToMany(mappedBy = "materiales")
     private List<Producto> productos;
+    
     
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrdenProduccion> ordenesProduccion;
@@ -62,6 +66,18 @@ public class Material implements Serializable {
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
         this.proveedor = proveedor;
+    }
+
+    public Material(Integer id, String nombre, String descripcion, String unidadMedida, int cantidad, List<DetalleCompra> detallesCompra, Proveedor proveedor, List<Producto> productos, List<OrdenProduccion> ordenesProduccion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.unidadMedida = unidadMedida;
+        this.cantidad = cantidad;
+        this.detallesCompra = detallesCompra;
+        this.proveedor = proveedor;
+        this.productos = productos;
+        this.ordenesProduccion = ordenesProduccion;
     }
 
     
@@ -138,6 +154,16 @@ public class Material implements Serializable {
     public void setOrdenesProduccion(List<OrdenProduccion> ordenesProduccion) {
         this.ordenesProduccion = ordenesProduccion;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+    
+    
 
     @Override
     public String toString() {

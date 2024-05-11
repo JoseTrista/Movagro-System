@@ -7,6 +7,7 @@ package com.futuresoft.sistemamovagro_negocio;
 import com.futuresoft.sistemamovagro_dominio.Compra;
 import com.futuresoft.sistemamovagro_dominio.DetalleCompra;
 import com.futuresoft.sistemamovagro_dominio.Material;
+import com.futuresoft.sistemamovagro_dominio.Movimiento;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_dominio.Secretaria;
 import java.util.List;
@@ -20,6 +21,7 @@ public class FachadaNegocio implements INegocio{
     ControlCompra com = new ControlCompra();
     ControlProveedor prov = new ControlProveedor();
     ControlSecretaria secretaria = new ControlSecretaria();
+    ControlMovimiento mov= new ControlMovimiento();
            
     @Override
     public List<Proveedor> recuperaProveedor() {
@@ -79,6 +81,16 @@ public class FachadaNegocio implements INegocio{
     @Override
     public Material editarMaterial(Material material) {
        return mat.editarMaterial(material);
+    }
+
+    @Override
+    public Material actualizarCantidadMaterial(int materialId, int cantidadAdicional) {
+        return mat.actualizarCantidadMaterial(materialId, cantidadAdicional);
+    }
+
+    @Override
+    public Movimiento agregarMovimiento(Movimiento movimiento) {
+       return mov.guardarMovimiento(movimiento);
     }
     
 }

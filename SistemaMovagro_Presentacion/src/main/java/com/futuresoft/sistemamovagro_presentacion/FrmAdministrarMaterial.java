@@ -131,7 +131,7 @@ public class FrmAdministrarMaterial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarMaterialActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        FrmMenuPrincipal menu = new FrmMenuPrincipal();
+        Menu menu = new Menu();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed

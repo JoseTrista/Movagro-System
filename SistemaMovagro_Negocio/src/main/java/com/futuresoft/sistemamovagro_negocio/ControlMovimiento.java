@@ -8,6 +8,7 @@ import com.futuresoft.sistemamovagro_datos.FachadaDatos;
 import com.futuresoft.sistemamovagro_datos.IDatos;
 import com.futuresoft.sistemamovagro_dominio.Material;
 import com.futuresoft.sistemamovagro_dominio.Movimiento;
+import java.util.List;
 
 /**
  *
@@ -22,6 +23,10 @@ public class ControlMovimiento {
 
     public Movimiento guardarMovimiento(Movimiento movimiento) {
         return datos.añadirMovimiento(movimiento);
+    }
+    
+    public List<Movimiento> consultarMovimientos(){
+        return datos.consultarMovimientos();
     }
 
 }

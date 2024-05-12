@@ -5,6 +5,7 @@
 package com.futuresoft.sistemamovagro_datos;
 
 import com.futuresoft.sistemamovagro_dominio.Movimiento;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -33,4 +34,16 @@ public class MovimientoDAO {
     return movimiento; 
 }
 
+    
+     public List<Movimiento> consultarMovimientos() {
+        EntityManager em = conexion.getEM();
+        try {
+            List<Movimiento> listaMovimientos = em.createQuery("SELECT m FROM Movimiento m", Movimiento.class).getResultList();
+            return listaMovimientos;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; 
+        }
+    }
+    
 }

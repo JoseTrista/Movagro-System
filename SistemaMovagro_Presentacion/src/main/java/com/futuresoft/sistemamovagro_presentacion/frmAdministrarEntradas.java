@@ -6,6 +6,7 @@ package com.futuresoft.sistemamovagro_presentacion;
 
 import static com.futuresoft.sistemamovagro_dominio.DetalleCompra_.material;
 import com.futuresoft.sistemamovagro_dominio.Material;
+import com.futuresoft.sistemamovagro_dominio.Movimiento;
 import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.util.List;
@@ -158,7 +159,10 @@ public class frmAdministrarEntradas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarMouseExited
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-
+         List<Movimiento> listaM=negocio.consultarMovimientos();
+        FrmConsultarEntradas consultarE = new FrmConsultarEntradas(listaM);
+        consultarE.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseEntered

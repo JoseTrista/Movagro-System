@@ -46,5 +46,7 @@ public interface IDatos {
     public Material actualizarCantidadMaterial(int materialId, int cantidadAdicional);
     
     public Movimiento añadirMovimiento(Movimiento movimineto);
+    
+    public List<Movimiento> consultarMovimientos();
 
 }

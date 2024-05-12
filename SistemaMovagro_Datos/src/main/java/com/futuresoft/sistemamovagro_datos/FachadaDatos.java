@@ -92,6 +92,11 @@ public class FachadaDatos implements IDatos{
     public Movimiento añadirMovimiento(Movimiento movimineto) {
       return movi.guardarMovimiento(movimineto);
     }
+
+    @Override
+    public List<Movimiento> consultarMovimientos() {
+        return movi.consultarMovimientos();
+    }
     
     
 }

@@ -92,5 +92,10 @@ public class FachadaNegocio implements INegocio{
     public Movimiento agregarMovimiento(Movimiento movimiento) {
        return mov.guardarMovimiento(movimiento);
     }
+
+    @Override
+    public List<Movimiento> consultarMovimientos() {
+      return mov.consultarMovimientos();
+    }
     
 }

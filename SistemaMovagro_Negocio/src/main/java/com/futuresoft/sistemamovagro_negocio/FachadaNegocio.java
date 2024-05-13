@@ -97,5 +97,15 @@ public class FachadaNegocio implements INegocio{
     public List<Movimiento> consultarMovimientos() {
       return mov.consultarMovimientos();
     }
+
+    @Override
+    public Movimiento actualizarMovimiento(Movimiento movimiento) {
+      return mov.actualizarMovimiento(movimiento);
+    }
+
+    @Override
+    public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadnNueva) {
+       return mat.actualizarCantidadMaterialMovimiento(materialId, cantidadnNueva);
+    }
     
 }

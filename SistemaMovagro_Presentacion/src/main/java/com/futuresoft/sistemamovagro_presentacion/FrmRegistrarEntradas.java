@@ -49,7 +49,7 @@ public class FrmRegistrarEntradas extends javax.swing.JFrame {
                 if (resultadoMaterial != null) {
                     // Si la actualización es exitosa, procede a registrar el movimiento
                     Movimiento nuevoMovimiento = new Movimiento();
-                    nuevoMovimiento.setMaterial(selectedMaterial.getNombre());
+                    nuevoMovimiento.setMaterial(selectedMaterial);
                     nuevoMovimiento.setCantidad(cantidad);
                     nuevoMovimiento.setFecha(new Date());
                     nuevoMovimiento.setTipoMovimiento("Entrada Material");

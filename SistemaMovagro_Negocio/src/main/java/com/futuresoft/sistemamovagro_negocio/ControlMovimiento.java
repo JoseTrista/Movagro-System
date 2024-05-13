@@ -28,5 +28,9 @@ public class ControlMovimiento {
     public List<Movimiento> consultarMovimientos(){
         return datos.consultarMovimientos();
     }
+    
+    public Movimiento actualizarMovimiento(Movimiento movimiento){
+        return datos.actualizarMovimiento(movimiento);
+    }
 
 }

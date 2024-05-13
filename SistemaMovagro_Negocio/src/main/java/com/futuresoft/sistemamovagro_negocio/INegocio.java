@@ -49,5 +49,9 @@ public interface INegocio {
     
     
     public List<Movimiento> consultarMovimientos();
+    
+    public Movimiento actualizarMovimiento(Movimiento movimiento);
+    
+    public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadnNueva);
 
 }

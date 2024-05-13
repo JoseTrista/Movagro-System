@@ -40,4 +40,10 @@ public class ControlMaterial {
     public Material actualizarCantidadMaterial(int materialId, int cantidadAdicional) {
         return datos.actualizarCantidadMaterial(materialId, cantidadAdicional);
     }
+    
+      public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadnNueva){
+        return datos.actualizarCantidadMaterial(materialId, cantidadnNueva);
+    }
+    
+    
 }

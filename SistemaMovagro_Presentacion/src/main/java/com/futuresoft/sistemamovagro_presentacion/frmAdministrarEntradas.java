@@ -159,7 +159,7 @@ public class frmAdministrarEntradas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarMouseExited
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-         List<Movimiento> listaM=negocio.consultarMovimientos();
+           List<Movimiento> listaM=negocio.consultarMovimientos();
         FrmConsultarEntradas consultarE = new FrmConsultarEntradas(listaM);
         consultarE.setVisible(true);
         this.dispose();
@@ -174,7 +174,10 @@ public class frmAdministrarEntradas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarMouseExited
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       ;
+       List<Movimiento> listaM=negocio.consultarMovimientos();
+        FrmEditarEntrada consultarE = new FrmEditarEntrada(listaM);
+        consultarE.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed

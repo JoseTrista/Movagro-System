@@ -97,6 +97,16 @@ public class FachadaDatos implements IDatos{
     public List<Movimiento> consultarMovimientos() {
         return movi.consultarMovimientos();
     }
+
+    @Override
+    public Movimiento actualizarMovimiento(Movimiento movimiento) {
+      return movi.actualizarMovimiento(movimiento);
+    }
+
+    @Override
+    public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadNueva) {
+    return mat.actualizarCantidadMaterialMovimiento(materialId, cantidadNueva);
+    }
     
     
 }

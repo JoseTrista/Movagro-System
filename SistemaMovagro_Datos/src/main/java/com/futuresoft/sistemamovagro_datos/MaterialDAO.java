@@ -103,4 +103,27 @@ public class MaterialDAO {
         }
         return material;
     }
+    
+    
+      
+    public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadNueva) {
+        EntityManager em = conexion.getEM();
+        Material material = null;
+        try {
+            em.getTransaction().begin();
+            material = em.find(Material.class, materialId); 
+            if (material != null) {
+                material.setCantidad(cantidadNueva); 
+                em.merge(material); 
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            return null;
+        }
+        return material;
+    }
 }

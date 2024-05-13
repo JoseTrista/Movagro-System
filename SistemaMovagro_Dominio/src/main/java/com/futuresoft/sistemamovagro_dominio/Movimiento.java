@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,17 +27,21 @@ public class Movimiento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "Material")
-    private String material;
+    @JoinColumn(name = "Material")
+    private Material material;
 
-  
-    public String getMaterial() {
+    
+    
+    public Material getMaterial() {
         return material;
     }
 
-    public void setMaterial(String material) {
+    public void setMaterial(Material material) {
         this.material = material;
     }
+
+  
+    
 
     public String getTipoMovimiento() {
         return tipoMovimiento;
@@ -58,13 +63,15 @@ public class Movimiento implements Serializable {
     @Column(name = "Tipo_Movimiento")
     private String tipoMovimiento;
 
-    public Movimiento(Integer id, String material, int cantidad, Date fecha, String tipoMovimiento) {
+    public Movimiento(Integer id, Material material, int cantidad, Date fecha, String tipoMovimiento) {
         this.id = id;
         this.material = material;
         this.cantidad = cantidad;
         this.fecha = fecha;
         this.tipoMovimiento = tipoMovimiento;
     }
+
+    
 
     @Override
     public String toString() {

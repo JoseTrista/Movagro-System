@@ -107,6 +107,11 @@ public class FachadaDatos implements IDatos{
     public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadNueva) {
     return mat.actualizarCantidadMaterialMovimiento(materialId, cantidadNueva);
     }
+
+    @Override
+    public Material actualizarMaterial(int materialId, String nuevoNombre, String nuevaDescripcion, String nuevaUnidadMedida) {
+        return mat.actualizarMaterial(materialId, nuevoNombre, nuevaDescripcion, nuevaUnidadMedida);
+    }
     
     
 }

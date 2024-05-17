@@ -45,6 +45,9 @@ public interface IDatos {
 
     public Material actualizarCantidadMaterial(int materialId, int cantidadAdicional);
     
+    public Material actualizarMaterial(int materialId, String nuevoNombre, String nuevaDescripcion, String nuevaUnidadMedida);
+    
+    
     public Movimiento añadirMovimiento(Movimiento movimineto);
     
     public List<Movimiento> consultarMovimientos();

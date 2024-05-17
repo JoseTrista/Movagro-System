@@ -47,6 +47,7 @@ public interface INegocio {
     
     public Movimiento agregarMovimiento(Movimiento movimiento);
     
+    public Material actualizarMaterial(int materialId, String nuevoNombre, String nuevaDescripcion, String nuevaUnidadMedida);
     
     public List<Movimiento> consultarMovimientos();
     

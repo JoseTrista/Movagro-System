@@ -107,5 +107,12 @@ public class FachadaNegocio implements INegocio{
     public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadnNueva) {
        return mat.actualizarCantidadMaterialMovimiento(materialId, cantidadnNueva);
     }
+
+    @Override
+    public Material actualizarMaterial(int materialId, String nuevoNombre, String nuevaDescripcion, String nuevaUnidadMedida) {
+        //return mat.actualizarMaterial(materialId, nuevoNombre, nuevaDescripcion, nuevaUnidadMedida);
+        return null;
+        //return mat.actualizarMaterial(materialId, nuevoNombre, nuevaDescripcion, nuevaUnidadMedida);
+    }
     
 }

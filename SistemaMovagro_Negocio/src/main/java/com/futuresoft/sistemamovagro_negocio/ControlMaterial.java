@@ -36,6 +36,11 @@ public class ControlMaterial {
     public Material editarMaterial(Material material) {
         return datos.editarMaterial(material);
     }
+    
+    public Material actualizarMaterial(Material material) {
+        return datos.actualizarMaterial(material);
+    }
+
 
     public Material actualizarCantidadMaterial(int materialId, int cantidadAdicional) {
         return datos.actualizarCantidadMaterial(materialId, cantidadAdicional);

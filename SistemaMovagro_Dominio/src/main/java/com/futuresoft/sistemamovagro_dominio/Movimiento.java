@@ -30,18 +30,14 @@ public class Movimiento implements Serializable {
     @JoinColumn(name = "Material")
     private Material material;
 
-    
-    
     public Material getMaterial() {
         return material;
     }
 
+    
     public void setMaterial(Material material) {
         this.material = material;
     }
-
-  
-    
 
     public String getTipoMovimiento() {
         return tipoMovimiento;

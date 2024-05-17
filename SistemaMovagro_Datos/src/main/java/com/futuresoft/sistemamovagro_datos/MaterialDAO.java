@@ -129,6 +129,7 @@ public class MaterialDAO {
 }
 
 
+
      
     public Material actualizarCantidadMaterialMovimiento(int materialId, int cantidadNueva) {
         EntityManager em = conexion.getEM();

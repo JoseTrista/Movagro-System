@@ -37,8 +37,10 @@ public class ControlMaterial {
         return datos.editarMaterial(material);
     }
     
-    public Material actualizarMaterial(Material material) {
-        return datos.actualizarMaterial(material);
+    public Material actualizarMaterial(int materialId, String nuevoNombre, String nuevaDescripcion, String nuevaUnidadMedida) {
+        return datos.actualizarMaterial(materialId, nuevoNombre, nuevaDescripcion, nuevaUnidadMedida);
+       
+        
     }
 
 

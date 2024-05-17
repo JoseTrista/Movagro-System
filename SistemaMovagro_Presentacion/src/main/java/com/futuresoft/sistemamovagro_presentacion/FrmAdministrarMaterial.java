@@ -64,7 +64,7 @@ public class FrmAdministrarMaterial extends javax.swing.JFrame {
         btnConsultarMaterial.setBackground(new java.awt.Color(0, 153, 204));
         btnConsultarMaterial.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         btnConsultarMaterial.setForeground(new java.awt.Color(255, 255, 255));
-        btnConsultarMaterial.setText("Consultar Material");
+        btnConsultarMaterial.setText("Editar Material");
         btnConsultarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarMaterialActionPerformed(evt);

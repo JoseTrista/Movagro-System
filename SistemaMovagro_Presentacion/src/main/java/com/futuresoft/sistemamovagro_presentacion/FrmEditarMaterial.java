@@ -5,10 +5,12 @@
 package com.futuresoft.sistemamovagro_presentacion;
 
 import com.futuresoft.sistemamovagro_dominio.Material;
+import com.futuresoft.sistemamovagro_dominio.Movimiento;
 import com.futuresoft.sistemamovagro_dominio.Proveedor;
 import com.futuresoft.sistemamovagro_negocio.FachadaNegocio;
 import com.futuresoft.sistemamovagro_negocio.INegocio;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -177,7 +179,33 @@ public class FrmEditarMaterial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       editarFilaSeleccionada();
+       int selectedRow = TablaConsultas.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un material para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int modelRow = TablaConsultas.convertRowIndexToModel(selectedRow);
+            DefaultTableModel model = (DefaultTableModel) TablaConsultas.getModel();
+
+//            Movimiento selectedMovimiento = new Movimiento();
+//            selectedMovimiento.setId((Integer) model.getValueAt(modelRow, 0));
+//            selectedMovimiento.setCantidad((Integer) model.getValueAt(modelRow, 1));
+//            selectedMovimiento.setFecha((Date) model.getValueAt(modelRow, 2));
+//            selectedMovimiento.setMaterial((Material) model.getValueAt(modelRow, 3));
+//            selectedMovimiento.setTipoMovimiento((String) model.getValueAt(modelRow, 4));
+
+            Material selectedMaterial= new Material();
+            selectedMaterial.setId((Integer) model.getValueAt(modelRow, 0));
+            selectedMaterial.setNombre((String) model.getValueAt(modelRow, 1));
+            selectedMaterial.setDescripcion((String) model.getValueAt(modelRow, 2));
+            selectedMaterial.setUnidadMedida((String) model.getValueAt(modelRow, 3));
+            EditarMaterial editarVentana = new EditarMaterial(selectedMaterial);
+            editarVentana.setVisible(true);
+            this.dispose();
+        }
+
+        
+        
+        //editarFilaSeleccionada();
     }//GEN-LAST:event_btnEditarActionPerformed
 
 

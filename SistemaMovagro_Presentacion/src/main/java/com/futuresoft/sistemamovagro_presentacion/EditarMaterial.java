@@ -20,65 +20,62 @@ public class EditarMaterial extends javax.swing.JFrame {
     /**
      * Creates new form EditarMaterial
      */
-    Material material= new Material();
+    Material material = new Material();
     INegocio negocio;
-    
+
     String descripcion, nombre, unidadMedida;
+
     public EditarMaterial(Material materialEnviado) {
         initComponents();
         negocio = new FachadaNegocio();
-        material=materialEnviado;
-        nombre=materialEnviado.getNombre();
-        descripcion=materialEnviado.getDescripcion();
-        unidadMedida=materialEnviado.getUnidadMedida();
+        material = materialEnviado;
+        nombre = materialEnviado.getNombre();
+        descripcion = materialEnviado.getDescripcion();
+        unidadMedida = materialEnviado.getUnidadMedida();
+        txtNombre.setText(materialEnviado.getNombre());
+        txtDescripcion.setText(materialEnviado.getDescripcion());
+        txtUnidadMedida.setText(materialEnviado.getUnidadMedida());
     }
 
-//    private void actualizarMovimiento() {
-//    try {
-//        String nuevoNombre = txtNombre.getText().trim();
-//        String nuevaDescripcion = txtDescripcion.getText().trim();
-//        String nuevaUnidadMedida = txtUnidadMedida.getText().trim();
-//
-//        if (nuevoNombre.isEmpty() || nuevaDescripcion.isEmpty() || nuevaUnidadMedida.isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//
-//        // Actualiza el objeto movimiento con la nueva información
-//        material.setNombre(nuevoNombre);
-//        material.setDescripcion(nuevaDescripcion);
-//        material.setUnidadMedida(nuevaUnidadMedida);
-//
-//        // Intenta actualizar el movimiento en la base de datos
-//        //Material materialActualizado = negocio.actualizarMaterial(material);
-//
-//        // Si el movimiento se actualizó correctamente, procede a actualizar los datos del material
-////        if (movimientoActualizado != null) {
-////            // Actualizar el material con los nuevos datos
-////            Material materialActualizado = negocio.actualizarMaterial(
-////                mov.getMaterial().getId(),
-////                nuevoNombre,
-////                nuevaDescripcion,
-////                nuevaUnidadMedida
-////            );
-//
-//            List<Movimiento> listaM = negocio.consultarMovimientos();
-//            FrmEditarEntrada consultarE = new FrmEditarEntrada(listaM);
-//            consultarE.setVisible(true);
-//            this.dispose();
-//
-//            if (materialActualizado != null) {
-//                JOptionPane.showMessageDialog(this, "Movimiento y material actualizados correctamente.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Error al actualizar el material.", "Error de Actualización", JOptionPane.ERROR_MESSAGE);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Error al actualizar el movimiento.", "Error de Actualización", JOptionPane.ERROR_MESSAGE);
-//        }
-//    } catch (Exception e) {
-//        JOptionPane.showMessageDialog(this, "Error al actualizar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//    }
-//}
+    private void actualizarMaterial() {
+        try {
+            String nuevoNombre = txtNombre.getText().trim();
+            String nuevaDescripcion = txtDescripcion.getText().trim();
+            String nuevaUnidadMedida = txtUnidadMedida.getText().trim();
+
+            if (nuevoNombre.isEmpty() || nuevaDescripcion.isEmpty() || nuevaUnidadMedida.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Actualiza el objeto material con la nueva información
+            material.setNombre(nuevoNombre);
+            material.setDescripcion(nuevaDescripcion);
+            material.setUnidadMedida(nuevaUnidadMedida);
+
+            // Intenta actualizar el material en la base de datos
+            Material materialActualizado = negocio.actualizarMaterial(
+                    material.getId(),
+                    nuevoNombre,
+                    nuevaDescripcion,
+                    nuevaUnidadMedida
+            );
+
+            // Si el material se actualizó correctamente
+            if (materialActualizado != null) {
+                List<Material> materialesC = negocio.recuperaMaterial();
+                FrmEditarMaterial consultar = new FrmEditarMaterial(materialesC);
+                consultar.setVisible(true);
+                this.dispose();
+
+                JOptionPane.showMessageDialog(this, "Material actualizado correctamente.", "Actualización Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar el material.", "Error de Actualización", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,14 +188,16 @@ public class EditarMaterial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        //actualizarMovimiento();
+        actualizarMaterial();
+
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
 
-        List<Movimiento> listaM = negocio.consultarMovimientos();
-        FrmEditarEntrada consultarE = new FrmEditarEntrada(listaM);
-        consultarE.setVisible(true);
+        List<Material> listaM = negocio.recuperaMaterial();
+        FrmEditarMaterial editarM = new FrmEditarMaterial(listaM);
+        editarM.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 

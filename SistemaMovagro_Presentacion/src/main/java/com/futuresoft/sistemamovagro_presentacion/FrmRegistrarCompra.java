@@ -284,19 +284,19 @@ public class FrmRegistrarCompra extends javax.swing.JFrame {
                 cbMaterialActionPerformed(evt);
             }
         });
-        jPanel2.add(cbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 410, -1));
+        jPanel2.add(cbMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 410, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Proveedor");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText(" Material");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, 20));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Cantidad");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, -1));
 
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,11 +308,11 @@ public class FrmRegistrarCompra extends javax.swing.JFrame {
                 txtCantidadKeyTyped(evt);
             }
         });
-        jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 410, -1));
+        jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 410, -1));
 
         lblUnidadMedida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblUnidadMedida.setText("Unidad de Medida");
-        jPanel2.add(lblUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+        jPanel2.add(lblUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
 
         txtCosto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,15 +324,17 @@ public class FrmRegistrarCompra extends javax.swing.JFrame {
                 txtCostoKeyTyped(evt);
             }
         });
-        jPanel2.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 410, -1));
+        jPanel2.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 410, -1));
 
+        btnAgregar.setBackground(new java.awt.Color(0, 153, 204));
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/registrar2.png"))); // NOI18N
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 418, -1));
+        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 110, 40));
 
         tblDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -352,66 +354,78 @@ public class FrmRegistrarCompra extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblDetalleCompra);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 600, 110));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 520, 110));
 
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/basura2.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
+        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 100, -1));
 
+        btnEditar.setBackground(new java.awt.Color(255, 255, 0));
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recargar2.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 73, -1));
+        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 100, -1));
 
+        btnVolver.setBackground(new java.awt.Color(0, 153, 204));
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(117, 490, 80, -1));
+        jPanel2.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, 80, -1));
 
+        btnLimpiar.setBackground(new java.awt.Color(0, 153, 204));
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 93, -1));
+        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, 93, -1));
 
+        btnPDF.setBackground(new java.awt.Color(0, 153, 204));
         btnPDF.setText("PDF");
         btnPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPDFActionPerformed(evt);
             }
         });
-        jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 490, 78, -1));
+        jPanel2.add(btnPDF, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 78, -1));
 
+        btnGuardar.setBackground(new java.awt.Color(0, 153, 204));
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 490, 89, -1));
+        jPanel2.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 480, 89, -1));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
-        jLabel1.setText("Registrar Compra");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Movagro.png"))); // NOI18N
+        jLabel1.setText("         Registrar Compra");
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 153, 204)));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 540, -1));
 
         cbProovedor1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbProovedor1ActionPerformed(evt);
             }
         });
-        jPanel2.add(cbProovedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 418, -1));
+        jPanel2.add(cbProovedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 418, -1));
 
         txtUnidadMedida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -423,21 +437,24 @@ public class FrmRegistrarCompra extends javax.swing.JFrame {
                 txtUnidadMedidaKeyTyped(evt);
             }
         });
-        jPanel2.add(txtUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 410, -1));
+        jPanel2.add(txtUnidadMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 410, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Costo");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();

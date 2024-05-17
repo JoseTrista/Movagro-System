@@ -46,63 +46,70 @@ public class FrmAdministrarMaterial extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnVolver.setBackground(new java.awt.Color(0, 153, 204));
         btnVolver.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         btnVolver.setForeground(new java.awt.Color(255, 255, 255));
-        btnVolver.setText("Volver");
+        btnVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cerrar-sesion.png"))); // NOI18N
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 110, -1));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 70, -1));
 
         labelTitle.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
+        labelTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Movagro.png"))); // NOI18N
         labelTitle.setText("Administrar Material");
-        jPanel1.add(labelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        labelTitle.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 153, 204)));
+        jPanel1.add(labelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
         btnConsultarMaterial.setBackground(new java.awt.Color(0, 153, 204));
         btnConsultarMaterial.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         btnConsultarMaterial.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsultarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recargar.png"))); // NOI18N
         btnConsultarMaterial.setText("Editar Material");
+        btnConsultarMaterial.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
         btnConsultarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarMaterialActionPerformed(evt);
             }
         });
-        jPanel1.add(btnConsultarMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 240, -1));
+        jPanel1.add(btnConsultarMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 240, -1));
 
         btnBajaMaterial.setBackground(new java.awt.Color(0, 153, 204));
         btnBajaMaterial.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         btnBajaMaterial.setForeground(new java.awt.Color(255, 255, 255));
+        btnBajaMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/basura.png"))); // NOI18N
         btnBajaMaterial.setText("Baja Material");
+        btnBajaMaterial.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
         btnBajaMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBajaMaterialActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBajaMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 240, -1));
+        jPanel1.add(btnBajaMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 240, -1));
 
         btnRegistrarMaterial.setBackground(new java.awt.Color(0, 153, 204));
         btnRegistrarMaterial.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         btnRegistrarMaterial.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/editar.png"))); // NOI18N
         btnRegistrarMaterial.setText("Registrar Material");
+        btnRegistrarMaterial.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
         btnRegistrarMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarMaterialActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrarMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 240, -1));
+        jPanel1.add(btnRegistrarMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 240, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

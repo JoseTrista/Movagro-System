@@ -40,50 +40,60 @@ public class Menu extends javax.swing.JFrame {
 
         btnAdministrarEntradas.setBackground(new java.awt.Color(0, 153, 204));
         btnAdministrarEntradas.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btnAdministrarEntradas.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdministrarEntradas.setText("Administrar Entradas");
+        btnAdministrarEntradas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/salida.png"))); // NOI18N
+        btnAdministrarEntradas.setText("    Administrar Entradas");
+        btnAdministrarEntradas.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
         btnAdministrarEntradas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdministrarEntradasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdministrarEntradas, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 240, -1));
+        jPanel1.add(btnAdministrarEntradas, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 260, -1));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 1, 36)); // NOI18N
-        jLabel1.setText("MENU PRINCIPAL");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Movagro.png"))); // NOI18N
+        jLabel1.setText("    MENU PRINCIPAL");
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 153, 204)));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 460, 70));
 
         btnAdministrarCompra.setBackground(new java.awt.Color(0, 153, 204));
         btnAdministrarCompra.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btnAdministrarCompra.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdministrarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/carrito-de-compras (2).png"))); // NOI18N
         btnAdministrarCompra.setText("Administrar Compra");
+        btnAdministrarCompra.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
         btnAdministrarCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdministrarCompraActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdministrarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 240, -1));
+        jPanel1.add(btnAdministrarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 240, -1));
 
         btnAdministrarMaterial1.setBackground(new java.awt.Color(0, 153, 204));
         btnAdministrarMaterial1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
-        btnAdministrarMaterial1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdministrarMaterial1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/materiales-de-construccion.png"))); // NOI18N
         btnAdministrarMaterial1.setText("Administrar Material");
+        btnAdministrarMaterial1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(0, 0, 0)));
         btnAdministrarMaterial1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdministrarMaterial1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdministrarMaterial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 240, -1));
+        jPanel1.add(btnAdministrarMaterial1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 260, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
